@@ -1,0 +1,19 @@
+node_modules/
+.pnpm-store/
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local data written by the web app (scan reports, orders, ledger)
+apps/web/.data/
+
+# Environment files: never commit real values
+.env
+.env.*
+!.env.example
+
+*.log
+.DS_Store
+Thumbs.db

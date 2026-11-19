@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Vibe96 Successor Blueprint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* A reading dossier: single column of long-form argument, with full-bleed tables and side notes.
+     The accent is a single burnt orange used for section numerals, callouts and critical rows. */
+  :root {
+    --bg: #FAFAF6;
+    --fg: #15181C;
+    --muted: #5F6871;
+    --faint: #8B9199;
+    --rule: #DFDED6;
+    --tint: #F2F0E7;
+    --accent: #B2420A;
+    --accent-soft: #F6E6D7;
+    --good: #2E6B3C;
+    --warn: #8A5A0A;
+    --bad:  #9B2A1C;
+    --code-bg: #ECEAE1;
+    --shadow: 0 1px 0 rgba(20,24,28,.06);
+    color-scheme: light;
+
+    --font-display: "Fraunces", Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1013;
+      --fg: #EDECE4;
+      --muted: #99A0A8;
+      --faint: #6B7279;
+      --rule: #22262B;
+      --tint: #171A1E;
+      --accent: #E4793F;
+      --accent-soft: #2B1C12;
+      --good: #7FBF8B;
+      --warn: #E0B06A;
+      --bad:  #E78473;
+      --code-bg: #171A1E;
+      --shadow: 0 1px 0 rgba(0,0,0,.5);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1013;
+    --fg: #EDECE4;
+    --muted: #99A0A8;
+    --faint: #6B7279;
+    --rule: #22262B;
+    --tint: #171A1E;
+    --accent: #E4793F;
+    --accent-soft: #2B1C12;
+    --good: #7FBF8B;
+    --warn: #E0B06A;
+    --bad:  #E78473;
+    --code-bg: #171A1E;
+    --shadow: 0 1px 0 rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 48px 96px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  main { max-width: 740px; margin: 0 auto; }
+  .wide { max-width: 1040px; margin: 0 auto; }
+
+  /* Masthead */
+  .masthead { border-bottom: 1px solid var(--rule); padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(32px, 5.2vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .dek {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36;
+    font-weight: 400;
+    font-size: clamp(17px, 1.7vw, 20px);
+    line-height: 1.45;
+    color: var(--muted);
+    margin: 0 0 20px;
+    max-width: 60ch;
+  }
+  .byline {
+    font-size: 13px;
+    color: var(--faint);
+    letter-spacing: 0.02em;
+  }
+  .byline span + span::before { content: " · "; color: var(--rule); }
+
+  /* Table of contents */
+  nav.toc {
+    border: 1px solid var(--rule);
+    background: var(--tint);
+    padding: 20px 22px;
+    margin: 0 0 48px;
+    border-radius: 2px;
+  }
+  nav.toc h2 {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; display: grid; gap: 6px; }
+  nav.toc li { counter-increment: toc; display: flex; gap: 14px; align-items: baseline; min-width: 0; }
+  nav.toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    flex: 0 0 auto;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+  nav.toc a:hover { border-bottom-color: var(--accent); }
+
+  /* Section headings */
+  section { margin-block: 56px; }
+  section > h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  section > h2 .num {
+    font-family: var(--font-mono);
+    font-size: 0.5em;
+    color: var(--accent);
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: 0.4em;
+    letter-spacing: 0.04em;
+  }
+  section > .lede {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 28px;
+    max-width: 60ch;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: "opsz" 48;
+    font-size: 21px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    margin: 32px 0 10px;
+    text-wrap: balance;
+  }
+  h4 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 24px 0 8px;
+  }
+
+  p { margin: 0 0 14px; }
+  p + p { margin-top: 0; }
+  strong { font-weight: 600; color: var(--fg); }
+  em { font-style: italic; color: var(--fg); }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--fg);
+  }
+  blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 20px 0;
+    padding: 2px 0 2px 18px;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--fg);
+  }
+  ul, ol { margin: 0 0 16px; padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  li::marker { color: var(--accent); }
+
+  /* Dense tables, allowed to go wider than text column */
+  .table-wrap { margin: 20px -4px; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 540px; }
+  caption {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 0 0 8px;
+    font-weight: 600;
+  }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  thead th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+    font-weight: 700;
+    border-bottom: 1px solid var(--fg);
+  }
+  tbody tr:last-child td { border-bottom: 1px solid var(--fg); }
+  td.num { font-variant-numeric: tabular-nums; }
+
+  /* Callouts */
+  .callout {
+    border-left: 2px solid var(--accent);
+    background: var(--tint);
+    padding: 16px 18px;
+    margin: 22px 0;
+    font-size: 14.5px;
+  }
+  .callout h4 { margin-top: 0; color: var(--accent); }
+  .callout.good { border-left-color: var(--good); }
+  .callout.good h4 { color: var(--good); }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.warn h4 { color: var(--warn); }
+  .callout.bad { border-left-color: var(--bad); }
+  .callout.bad h4 { color: var(--bad); }
+
+  /* Pills */
+  .pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    line-height: 1.5;
+    vertical-align: 1px;
+  }
+  .pill.good { color: var(--good); }
+  .pill.warn { color: var(--warn); }
+  .pill.bad  { color: var(--bad);  }
+  .pill.flat { color: var(--muted); }
+
+  /* Phase cards */
+  .phases { display: grid; gap: 14px; margin: 24px 0 10px; }
+  .phase {
+    border: 1px solid var(--rule);
+    padding: 16px 18px;
+    border-radius: 2px;
+  }
+  .phase .ph-head {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .phase .ph-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+  .phase .ph-weeks {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .phase h3 { margin: 0; font-size: 19px; }
+  .phase p.lede { color: var(--muted); font-size: 14px; margin: 4px 0 10px; }
+
+  /* KPI grid */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 20px 0; }
+  .kpi { background: var(--bg); padding: 14px 16px; min-width: 0; }
+  .kpi .lbl {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .kpi .val {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 72;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* Footer */
+  footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
+
+  /* Keep flex/grid children from pushing page wider */
+  main *, .wide * { min-width: 0; }
+  img { max-width: 100%; }
+  @media (max-width: 500px) {
+    body { padding-block: 32px 72px; font-size: 15px; }
+    h1 { font-size: 34px; }
+    .dek { font-size: 16px; }
+  }
+</style>
+
+<main>
+
+<header class="masthead">
+  <p class="eyebrow">Strategic dossier · Marketplace rebuild</p>
+  <h1>Vibe96 Successor Blueprint</h1>
+  <p class="dek">A senior-architect audit of vibe96.com in October 2026, followed by the goals, architecture, and twelve-month execution plan for a more powerful successor.</p>
+  <p class="byline">
+    <span>Prepared for a prospective founder</span>
+    <span>Subject: vibe96.com, operated by Vibe96 FZ-LLC / Royex Technologies, Dubai</span>
+    <span>Reading time about 30 minutes</span>
+  </p>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#summary">Executive summary</a></li>
+    <li><a href="#whatisit">What Vibe96 actually is in October 2026</a></li>
+    <li><a href="#surfaces">Every surface, audited</a></li>
+    <li><a href="#market">The competitive landscape</a></li>
+    <li><a href="#gaps">The complete gap register</a></li>
+    <li><a href="#thesis">The thesis for a successor</a></li>
+    <li><a href="#goals">Goals, in SMART form</a></li>
+    <li><a href="#arch">Reference architecture</a></li>
+    <li><a href="#roadmap">The twelve-month roadmap</a></li>
+    <li><a href="#commerce">Pricing, licensing, and business model</a></li>
+    <li><a href="#team">Team, budget, and go-to-market</a></li>
+    <li><a href="#kpis">KPIs and success metrics</a></li>
+    <li><a href="#risks">Risks and open questions</a></li>
+    <li><a href="#next">What to do this week</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 ============ -->
+<section id="summary">
+  <h2><span class="num">01</span>Executive summary</h2>
+  <p>Vibe96 does one unusual thing well. It has a clear, named audit framework for AI-built software, with a human review on top. That is its moat and the reason to take it seriously. Almost everything around it is thin, early, or missing: discovery, deployment, customisation, buyer trust, builder economics, and the technical surface itself. Its own published numbers (68 apps, 24 selling builders, 2 customer deployments) show an operation still at launch scale.</p>
+
+  <p>The promotional explainer by Sumit Saha (Learn with Sumit, 17 October 2026) frames the problem as <strong>Trust, Distribution and Delivery</strong>. That framing is right. The product today ships the slogan with the thinnest version of each pillar: a one-time audit, a keyword search over about 68 listings, and a 48-working-hour human deployment onto a prepaid VPS. A successor can take this market by turning each pillar from a promise that people fulfil by hand into an automated system: a quality score that keeps updating, try-before-buy sandboxes, semantic discovery, serverless, container and VPS hosting tiers, and a durable AI agent that lives inside the buyer's project.</p>
+
+  <p>This dossier is the plan for building that successor. It is written for a founder with a team, or a serious plan to assemble one. It takes positions: it recommends specific technology, specific commercial terms, and a specific first ninety days.</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="whatisit">
+  <h2><span class="num">02</span>What Vibe96 actually is in October 2026</h2>
+  <p class="lede">Positioning, legal entity, scale, team, and the actual product footprint — because the sales copy on the homepage is not what you'd compete with.</p>
+
+  <h3>Positioning</h3>
+  <p>Vibe96 sells itself as the first marketplace for <em>vibe-coded</em> software — apps built with Claude Code, OpenAI Codex, Cursor, Lovable, Bolt, and similar — with every listing audited by an automated system and reviewed by a person before it goes live. The pitch is end-to-end: buy the code, hire humans to change it, host it on Vibe96's VPS, keep upgrading with Nova (its in-platform AI developer). Buyers get a one-time single-site licence; builders keep 65% of each sale.</p>
+
+  <h3>Legal and operational footprint</h3>
+  <p>The licence page names <strong>Royex Technologies LLC, Dubai, United Arab Emirates</strong> as the marketplace operator, with the licence issued on each seller's behalf. The About page separately names <strong>Vibe96 FZ-LLC</strong>, which is the trading entity. Governing law for the licence is the DIFC — Dubai International Financial Centre. The CEO is John Bush; the CTO/COO is Rajib Roy. There is a seller agreement at <code>/seller-agreement</code> and a service terms page at <code>/service-terms</code>.</p>
+
+  <h3>Scale, from the live stats they publish themselves</h3>
+  <div class="kpis">
+    <div class="kpi"><p class="lbl">Audited apps on sale</p><p class="val">68</p><p class="sub">About page; search showed 66</p></div>
+    <div class="kpi"><p class="lbl">Builders selling</p><p class="val">24</p><p class="sub">homepage claims 790 builders overall</p></div>
+    <div class="kpi"><p class="lbl">Apps deployed for customers</p><p class="val">2</p><p class="sub">About page live figure</p></div>
+    <div class="kpi"><p class="lbl">Average buyer rating</p><p class="val">5.0★</p><p class="sub">review count not shown</p></div>
+    <div class="kpi"><p class="lbl">Working-hour SLA to go live</p><p class="val">48h</p><p class="sub">from receipt of all buyer details</p></div>
+    <div class="kpi"><p class="lbl">30-day pageviews</p><p class="val">170k</p><p class="sub">6,802 in the last 24 hours</p></div>
+  </div>
+  <p class="callout bad">
+    <strong>Look closely at "2 apps deployed."</strong> It is the most revealing number on the site. Get it Live, the managed-hosting business presented as half the value proposition, shows two customer deployments. Delivery is being sold ahead of being proven at volume. That does not mean Vibe96 is failing. It means the market is still open.
+  </p>
+
+  <h3>Product footprint</h3>
+  <p>Six surfaces are live. A seventh, "Grow &amp; scale", is listed on the About page as coming next.</p>
+  <ul>
+    <li><strong>Buy software.</strong> 68 listings, 15 categories, filterable by tool-of-origin (Claude Code / Codex / Cursor / Antigravity / Copilot / Gemini CLI / Lovable), tech stack and price. Mostly Laravel and ASP.NET Core; some Next.js, Electron, Flutter. Prices $29–$300, plus 5% buyer fee and (for UAE buyers) 5% VAT.</li>
+    <li><strong>Get it Live.</strong> Private Linux or Windows VPS from $8.58 to $161/month (prepaid 3, 6 or 12 months; 12 months is 10% off), set up in UK / US / Germany / India data centres. 48 working-hour SLA, daily off-server backups kept 7 days, 99.9% infra uptime guarantee carried from the data centre, Dubai-hours support with 2-hour critical-ticket reply.</li>
+    <li><strong>Hire experts.</strong> Hourly packs ($70–$200/hr, two- to five-hour minimums) across consultant, senior dev, dev, DevOps, designer, mobile publisher. Separately, a <code>/developers</code> page runs a fixed-price scoped-work funnel with escrow — pay Vibe96, funds held until the delivery is accepted and the handed-over code passes the same audit as any listing.</li>
+    <li><strong>Sell &amp; earn.</strong> Builders submit code and a public demo, pass an automated 6-axis audit at ≥75/100 with no failing check, build their listing, upload ≥5 screenshots, sign a per-project seller agreement, pass a human review in Dubai (1–3 business days). 65% share, no listing fee, monthly payouts on the 5th by Wise/Payoneer/bank, $200 minimum, roll-forward below. Welcome and first-live bonuses up to $60.</li>
+    <li><strong>Vibe Studio (beta).</strong> Nova, a chat-driven AI developer, works on the buyer's deployed project with a design-preview step before code is written. Pay-as-you-go credit, $5 free, $10 top-ups. Claude for code, ChatGPT for images; Kimi and DeepSeek listed as planned.</li>
+    <li><strong>AI Assistants.</strong> Four named chat personas — Vee (buyer guide), Remy (builder partner), Axel (tech helper), Nova (studio developer) — gated behind the chat widget. Not a first-class product surface; a shelf of specialist chat bots.</li>
+  </ul>
+
+  <h3>Technical fingerprint, inferred from the network trace</h3>
+  <p>This is inference from outside, not confirmed. The site behaves like a server-rendered multi-page app: every navigation is a full page load, and there are no client-framework hydration markers. The backend stack is not visible; PHP/Laravel is a reasonable guess given the catalogue, but unconfirmed. Fonts (Manrope WOFF2), CSS and hand-written scripts (<code>v96chat.js</code>, <code>compare.js</code>, <code>signals.js</code>) are served from the vibe96.com origin, and analytics go to a <code>POST /e/h</code> beacon. I did not inspect response headers, so CDN use is unknown.</p>
+  <p>URL handling is the clearest technical weakness visible from outside. <code>/project/furnivo</code> returns a 404 while <code>/project/furnivo-2</code> works, and the sitemap shows the same pattern across many projects (<code>-2</code>, <code>-3</code>, <code>-5</code> suffixes). Old links break, and search engines see duplicate or dead URLs.</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="surfaces">
+  <h2><span class="num">03</span>Every surface, audited</h2>
+  <p class="lede">A senior-reviewer pass, surface by surface. For each, what's actually there, what's good about it, and what's missing.</p>
+
+  <h3>3.1 Buy software — the marketplace itself</h3>
+  <p><strong>What's there.</strong> Filterable catalogue with sensible facets (category, built-with tool, price band, tech), pagination, 24 per page, a 3-slot compare page, a product-detail template that is genuinely rich: features broken down by subsystem, technical specification, server requirements, deployment notes, release history, audit sub-scores on six axes, builder sidebar, similar-products shelf. Keyword search placeholder tries to lead buyers with "Real estate CRM" / "Website with CMS" style exemplars.</p>
+  <p><strong>What's good.</strong> The product-detail page is the strongest content asset on the site. The 6-axis audit (secrets, deps, authz, DB access rules, structure, build reproducibility) is a legible, defensible rubric; the fact that each listing shows sub-scores plus a reviewer-notes line is better than CodeCanyon or Gumroad do.</p>
+  <p><strong>What's missing.</strong></p>
+  <ul>
+    <li><strong>Keyword search only, as far as I could see.</strong> No semantic retrieval, no "match me a project from this brief", no autocomplete, no saved searches, no alerts for new listings in a category.</li>
+    <li><strong>No code preview.</strong> Buyers can see the demo and the screenshots but cannot read a single file. For a code marketplace, this is the biggest trust gap.</li>
+    <li><strong>No try-before-buy sandbox.</strong> The demo is a shared public URL. There is nothing a buyer can touch, break, or fork.</li>
+    <li><strong>No buyer reviews.</strong> Testimonials are from builders. Buyers never rate anything post-purchase.</li>
+    <li><strong>No SBOM, no CVE refresh.</strong> The 94/100 score is from the day of audit (e.g. 6 Oct 2026). Nothing refreshes against vulnerability feeds. A listing with a Laravel pinned to a CVE'd minor version keeps its badge.</li>
+    <li><strong>Compare limited to 3</strong>, datasheet-style only. No performance benchmarks, dependency counts, test coverage, codebase-size trajectories.</li>
+    <li><strong>No freemium / open-core.</strong> Pure one-time licence, no trial, no community edition, no money-back; all sales final.</li>
+    <li><strong>Slug fragility.</strong> <code>/project/furnivo</code> → 404 vs <code>/project/furnivo-2</code> works. Projects re-ingested earn <code>-2</code>, <code>-3</code>, <code>-5</code> suffixes. Both SEO-costly and user-confusing.</li>
+  </ul>
+
+  <h3>3.2 Get it Live — managed deployment</h3>
+  <p><strong>What's there.</strong> A clear five-step flow — pick project (or upload / connect Git), pick server, pick publishing, pick optional expert hours, pay — with a 48 working-hour SLA from "receipt of everything." Hosting is private KVM-virtualised VPS on Intel Xeon / AMD EPYC, in ISO 27001 / SOC 2 Type II facilities, Linux or fully-licensed Windows Server, 1 Gbps dedicated IP, hardware RAID 10. $8.58–$161/mo on 12-month term. Daily off-server backups kept 7 days. Mobile publishing is $399 per submission pass. 99.9% uptime guarantee is carried from the data-centre operator (not from Vibe96 itself).</p>
+  <p><strong>What's good.</strong> The build-up (private VPS, named engineers, 2-hour critical response, 72-hour security-incident disclosure, final backup downloadable for 3 months after hosting ends) is well-articulated and reads like someone who has run production. Pricing is in the right band — competitive with Hetzner Cloud + managed support.</p>
+  <p><strong>What's missing.</strong></p>
+  <ul>
+    <li><strong>VPS-only.</strong> No serverless, no edge, no container PaaS, no scale-to-zero. For AI-built Next.js apps this is actively worse than the buyer deploying straight to Vercel themselves.</li>
+    <li><strong>7-day backup / no PITR.</strong> Neon, Supabase, RDS all offer point-in-time recovery to the second. Daily snapshot with 7-day retention is below modern.</li>
+    <li><strong>Human SLA.</strong> 48 working hours is a human operation. No automation, no credit on breach, no public status page, no incident archive.</li>
+    <li><strong>No preview deployments per release.</strong> A new builder version arrives, there is no preview URL, no diff, no canary.</li>
+    <li><strong>Monthly minimum is high</strong> for small buyers of $29–$79 apps. Buying a $40 app and spending $240+ to host it for a year inverts the value stack.</li>
+    <li><strong>Lock-in posture.</strong> Buyers can download files and request a full copy, but there is no documented one-click migration path to another host.</li>
+  </ul>
+
+  <h3>3.3 Hire experts — the labour layer</h3>
+  <p><strong>What's there.</strong> Two paths. The <code>/experts</code> page sells hourly packs (consultant $200/hr, senior dev $100, dev $80, DevOps $75, designer $70, mobile publisher $70; 2–5 hour minimums; $150–$1,950 packs). The <code>/developers</code> page runs a fixed-price scoped-work funnel: free discovery call, Vibe96 introduces one or two vetted builders who already score 85+ on the audit, they quote a fixed price, buyer pays Vibe96 which holds funds until delivery is accepted, delivery is re-audited.</p>
+  <p><strong>What's good.</strong> The <code>/developers</code> fixed-price path is better than many freelance platforms: there is real escrow and the hand-off goes through the same audit as any listing. That's a genuinely good control.</p>
+  <p><strong>What's missing.</strong></p>
+  <ul>
+    <li><strong>No expert profiles.</strong> You pay first, then "we match you." A 2010 pattern. No portfolios, no verified past work, no response-time stats, no ratings, no time-zone.</li>
+    <li><strong>No scheduling preview.</strong> No calendar, no bookable slot.</li>
+    <li><strong>Hourly path has no escrow</strong>, only the scoped path does.</li>
+    <li><strong>Nova doesn't auto-escalate.</strong> When Vibe Studio hits something complex, it should draft a brief, estimate hours, and route to a shortlist. Today, there is no such bridge.</li>
+  </ul>
+
+  <h3>3.4 Sell &amp; earn — the builder flow</h3>
+  <p><strong>What's there.</strong> A seven-step submission flow (code + demo → automated audit → fix if under 75/100 → listing → media → seller agreement → human review). 65/35 split. No listing fee. $10 welcome + $50 first-live bonus. Monthly payouts on the 5th, $200 minimum, Wise/Payoneer/bank. Patch releases run a lighter admin approval; new versions run the full audit again. Builders must support buyers 30 days and provide updates for 12 months.</p>
+  <p><strong>What's good.</strong> The audit rubric is the backbone and it is clearly written. The commercial terms are competitive with CodeCanyon's new 50% cut.</p>
+  <p><strong>What's missing.</strong></p>
+  <ul>
+    <li><strong>Audits are point-in-time.</strong> No continuous re-score when deps age or CVEs land. A listing's badge drifts away from reality the day after it's issued.</li>
+    <li><strong>$200 monthly minimum is slow</strong> for small builders. Stripe Connect Express can pay weekly with no minimum in supported countries.</li>
+    <li><strong>No builder analytics.</strong> Only a sales list. No impression → compare → add-to-bag → paid funnel, no listing-copy A/B, no price-elasticity signal.</li>
+    <li><strong>No module / plugin sub-marketplace.</strong> A builder cannot sell a reusable Stripe adapter or audit-pass auth kit for other builders to drop into their templates.</li>
+    <li><strong>No GitHub-triggered re-audit.</strong> Every push should re-run the audit and update the live score.</li>
+    <li><strong>No LLM-generated changelogs.</strong> Release notes are hand-written by builders.</li>
+  </ul>
+
+  <h3>3.5 Vibe Studio — the AI customisation layer</h3>
+  <p><strong>What's there (beta).</strong> Nova as a coordinator; Claude generates code, ChatGPT generates images. The flow is Discuss → Plan (checklist points with per-task estimates) → Design (preview on the real page, with device variants) → Develop. The live site keeps running until the new version passes checks; rollback is available for 7 days. Pay-as-you-go, $5 free credit, $10 top-ups. Kimi, DeepSeek listed as planned additions.</p>
+  <p><strong>What's good.</strong> The design-preview-before-code flow is a strong UX idea. Showing a cost estimate per task and the real cost after is better than most IDE-side agents.</p>
+  <p><strong>What's missing.</strong></p>
+  <ul>
+    <li><strong>No stated durability.</strong> The page says nothing about tasks surviving tab closes, server restarts, or multi-hour runs. That may exist inside the beta, but it is not promised.</li>
+    <li><strong>Hard-coded provider pair.</strong> No model router, no AI Gateway, no BYOK, no per-task budget cap, no transparent fallback.</li>
+    <li><strong>No human handoff.</strong> No seamless Nova → expert ticket with pre-filled brief and estimate.</li>
+    <li><strong>No eval harness.</strong> How does Vibe96 know Nova got better this week? No published eval set.</li>
+  </ul>
+
+  <h3>3.6 Trust and security surface</h3>
+  <p>Hosting security page is substantive — isolated KVM, layered firewall, SSL auto-renew, 24/7 datacentre ops behind Mon-Fri 9-18 Dubai-time Vibe96 ops, 72-hour security-incident disclosure commitment, GDPR-aligned handling, DPA on request. The gap is the <strong>public evidence of real operation</strong>: no status page, no post-mortems, no SLA percentage track record, no transparent incident log, no SOC 2 of Vibe96 itself (the SOC 2 cited is the data centre's, inherited). For a buyer in financial services or healthcare, that gap is the deal.</p>
+
+  <h3>3.7 Content, SEO, and brand</h3>
+  <p>Sitemap exposes a <code>/blog</code> with 16 articles (all authored by "Marketing Team"), seven guides covering deploy-Lovable, deploy-Bolt, publish-to-app-store, fix-vibe-coded-app, security-checklist, buy, sell. The blog is young but on-strategy. The homepage carries a short, well-produced marketing site, well-written in a quiet "editorial trust" voice. English only across the whole site; USD only; VAT only for UAE.</p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="market">
+  <h2><span class="num">04</span>The competitive landscape</h2>
+  <p class="lede">Where Vibe96 sits inside a crowded, three-category market, and what the incumbents and challengers actually do.</p>
+
+  <h3>Three categories you compete against</h3>
+  <ol>
+    <li><strong>Classic code marketplaces.</strong> CodeCanyon (Envato, acquired by Shutterstock in 2024), Codester, Gumroad for code, independent script shops. A developer blog reports that Envato raised its cut to <strong>50%</strong> from July 2026 and dropped exclusivity; check Envato's author terms before relying on it. One widely shared essay argues CodeCanyon sales have fallen sharply since 2018. Catalogue is JS/PHP/ASP.NET/Java heavy. No live audit, no managed hosting, no AI customisation.</li>
+    <li><strong>Finished-business marketplaces.</strong> Flippa (volume, 5–10% success fee, built-in escrow), Acquire.com formerly MicroAcquire (SaaS over ~$250K ARR, closes 10–20% below listing), Empire Flippers (curated), ExitBid (5-day auctions, $199 flat listing, 0% commission, ~66% rejection). These sell running businesses, not source code.</li>
+    <li><strong>New vibe-coded-app marketplaces.</strong> Direct competitors to Vibe96: <strong>Vibe Coded / vibecodedshop</strong>, <strong>VibeCoding.Market</strong> (launched June 2025 for "abandoned and failed projects"), <strong>Unloved</strong>. All early, none with Vibe96's audit depth or Dubai-based operations backing them.</li>
+  </ol>
+
+  <h3>And the AI-builder platforms that <em>could</em> swallow this wedge</h3>
+  <p>The real strategic risk is not CodeCanyon, which is in decline. The real risk is that the AI-builder platforms where these apps are made add distribution themselves:</p>
+  <ul>
+    <li><strong>Lovable.</strong> $330M raise December 2025 at $6.6B. Exports React, Supabase, Stripe. If they add a marketplace, they own the funnel.</li>
+    <li><strong>Base44.</strong> Bought by Wix June 2025. Code export is limited today; a template exchange is the obvious next move.</li>
+    <li><strong>Replit.</strong> Agent + Templates already exist. Full git access, 50+ languages. A sell-your-template button is a quarter of work away.</li>
+    <li><strong>v0 (Vercel), Bolt (StackBlitz), Claude Code.</strong> Each has native distribution — Vercel Deploy, StackBlitz hosting, GitHub integration — that competes directly with Get it Live without charging extra.</li>
+  </ul>
+
+  <h3>And the audit-tool specialists</h3>
+  <p><strong>VibeChex</strong> publishes an AI-app audit methodology directly competing with Vibe96's rubric. <strong>Mend AIBoM</strong>, <strong>sbomqs</strong>, <strong>sbomaudit</strong>, and <strong>AI Code Validator</strong> all offer SBOM scoring and AI-code CVE scanning as standalone tools or SaaS. None has a marketplace attached — which is Vibe96's advantage — but any of them could ship one.</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption>How Vibe96 compares, as of October 2026</caption>
+      <thead>
+        <tr><th>Dimension</th><th>Vibe96</th><th>CodeCanyon</th><th>Flippa / Acquire</th><th>Lovable / Replit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What is sold</td><td>Source code of audited AI-built apps</td><td>Source code, themes, scripts</td><td>Running businesses</td><td>Hosted builder + export</td></tr>
+        <tr><td>Audit</td><td class="num"><span class="pill good">Yes</span> 6-axis, 75/100 gate</td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill bad">No code</span></td><td class="num"><span class="pill bad">No</span></td></tr>
+        <tr><td>Platform take</td><td class="num">35%</td><td class="num">50% (reported, 2026)</td><td class="num">5–10% + fees</td><td>n/a (hosting rev)</td></tr>
+        <tr><td>Buyer refund</td><td class="num"><span class="pill bad">None</span></td><td class="num"><span class="pill bad">None</span></td><td class="num"><span class="pill warn">Escrow</span></td><td class="num">n/a</td></tr>
+        <tr><td>Managed deploy</td><td class="num"><span class="pill good">VPS only</span></td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill good">Native</span></td></tr>
+        <tr><td>In-platform AI edits</td><td class="num"><span class="pill warn">Beta (Nova)</span></td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill good">Native</span></td></tr>
+        <tr><td>Human experts for hire</td><td class="num"><span class="pill good">Hourly + fixed</span></td><td class="num"><span class="pill bad">No</span></td><td class="num"><span class="pill warn">Brokers</span></td><td class="num"><span class="pill bad">No</span></td></tr>
+        <tr><td>Scale (listings)</td><td class="num">68</td><td class="num">tens of thousands</td><td class="num">thousands</td><td class="num">n/a</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="callout">
+    <strong>Where the wedge actually is.</strong> Not "cheap code with a demo" — CodeCanyon already does that. Not "AI builder" — Lovable, Replit, v0, Bolt already do that. The wedge is <em>live, verifiable, continuously-audited AI-built software you can try, buy, fork, host, and keep evolving — with a durable agent working on it and a human a click away</em>. Vibe96 is pointing at that wedge. It has not yet taken it.
+  </p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="gaps">
+  <h2><span class="num">05</span>The complete gap register</h2>
+  <p class="lede">Grouped by category, each with the current state, the implication, and the severity. These are what the successor must solve.</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Product gaps (buyer side)</caption>
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>No source code preview</td><td>Senior dev buyers cannot evaluate. Highest-margin segment self-selects out.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>No try-before-buy sandbox</td><td>Demo URL is shared and read-only. Risk-reversal missing on code purchase.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>No buyer reviews or Q&amp;A</td><td>Only builder testimonials. Social proof thin at 820 buyers / 68 apps.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>No refund, no cooling-off</td><td>All sales final kills $150+ price band conversion.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>Lexical-only search</td><td>Cannot ask "match me from this problem brief."</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>Compare limited to 3, datasheet only</td><td>No perf / dep / coverage comparison.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No release diff viewer</td><td>Hard to see what changed between 1.0 and 1.2.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>English + USD + UAE VAT only</td><td>Excludes EU/UK/IN/AU/SG tax jurisdictions and non-English buyers.</td><td><span class="pill warn">High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Product gaps (builder side)</caption>
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>One-shot audit, no continuous re-score</td><td>CVE-aware freshness is the thing a buyer actually pays for.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>No SBOM / SPDX output</td><td>Enterprise buyers cannot do license-compliance diligence.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No builder analytics / A/B</td><td>No funnel, no price elasticity, no listing-copy test.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>$200 monthly min payout, 5th of month</td><td>Small-builder cold-start cash-flow trap.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No GitHub-triggered re-audit</td><td>Audit is manual-submit; drifts out of date.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No module / plugin sub-marketplace</td><td>Builders cannot stand on each other.</td><td><span class="pill warn">High</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Trust gaps</caption>
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>No public status page / SLA %</td><td>"99.9% from the data centre" is not a Vibe96 commitment.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>No incident / post-mortem archive</td><td>Zero evidence of operational maturity.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>SOC 2 inherited, not held</td><td>Blocks regulated-industry buyers.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>DIFC-only jurisdiction</td><td>No comfort to EU / UK / US enterprise.</td><td><span class="pill flat">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Technical architecture gaps</caption>
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>Full page reloads on every navigation</td><td>Slower browsing through a catalogue; no partial rendering or streamed sections.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>VPS-only hosting tier</td><td>Loses Next.js / serverless-native deployments to Vercel direct.</td><td><span class="pill bad">Critical</span></td></tr>
+        <tr><td>Daily backup / 7-day retention</td><td>Below modern PITR expectations.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No public API, no webhooks</td><td>No third-party integration surface. No CLI, no MCP server.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>Slug collisions in URLs</td><td>Old links 404; duplicate URLs hurt search ranking.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>English only across the site</td><td>Shuts out the Arabic, Bengali, Hindi and European buyers the catalogue already targets.</td><td><span class="pill flat">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Business-model gaps</caption>
+      <thead><tr><th>Gap</th><th>Why it matters</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>Flat 35% take across all tiers</td><td>No commission ladder rewards scale sellers.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No agency / white-label plan</td><td>Agencies cannot ship 10 client sites a quarter.</td><td><span class="pill warn">High</span></td></tr>
+        <tr><td>No instalment on 4-figure hosting bundles</td><td>12-month prepaid is a conversion cliff.</td><td><span class="pill flat">Medium</span></td></tr>
+        <tr><td>No referral loop</td><td>Marketplace with no viral mechanic.</td><td><span class="pill flat">Medium</span></td></tr>
+        <tr><td>No subscription / update-continuation</td><td>Builder-buyer relationship ends at month 12.</td><td><span class="pill flat">Medium</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="thesis">
+  <h2><span class="num">06</span>The thesis for a successor</h2>
+
+  <blockquote>Vibe96 is a <em>catalogue plus managed services</em>. The successor should be a <em>programmable code-commerce platform</em> — buying a project is the first API call of an automated supply chain: fork, provision, deploy, instrument, iterate, upgrade.</blockquote>
+
+  <p>Everything that is a human-operated promise today becomes an automated primitive in the successor. The marketplace UI is one of several clients onto those primitives — the others are a CLI, an SDK, webhooks, and an MCP server that agentic IDEs (Cursor, Claude Code, Codex, v0) can call directly. That shift is the moat: once discovery, licensing, and deployment are callable from inside the tool the buyer already lives in, the marketplace is the default distribution of AI-built software and competitors have to catch three primitives at once.</p>
+
+  <p>Four principles sit under this.</p>
+
+  <h3>Principle 1 — Trust is a stream, not a stamp</h3>
+  <p>A score issued once and shown forever is a stamp. A score that re-runs nightly against the CVE feed, re-generates the SBOM on every push, demotes the badge when a dep ages past safe, and emails the builder to fix it, is a stream. The successor's quality score is a time series the buyer can see go up and down. The audit becomes a living product, not a certification.</p>
+
+  <h3>Principle 2 — Buyers must be able to touch the thing</h3>
+  <p>Try-before-buy sandbox on every listing: a one-click, 24-hour, scoped-to-the-SKU private deployment of the real source with seed data. Buyers click around, break things, decide. Then a 7-day refund under $200 and a 30-day store-credit refund above closes the risk conversation. This is the single highest-conversion lever in the plan.</p>
+
+  <h3>Principle 3 — Delivery is an escalator, not a stair</h3>
+  <p>Three deployment tiers, chosen at checkout, that match the buyer's maturity: zero-ops serverless/edge (scale-to-zero, usage-priced), managed containers (for stateful stacks), private VPS (for the compliance-first buyer who wants dedicated metal). Preview deployments per release on every tier. One-click migrate between tiers as the buyer grows.</p>
+
+  <h3>Principle 4 — The AI studio is a durable workspace, not a chat widget</h3>
+  <p>Nova is rebuilt as an <strong>eve</strong>-based durable agent (Vercel's filesystem-first agent framework) per buyer project: a real filesystem, tools, skills, schedules, evals, and a git-backed state that survives tab closes, model failures, and multi-hour tasks. Model routing through <strong>Vercel AI Gateway</strong>: Claude for code, GPT for images, Gemini for long-context, with transparent fallback and per-task spend caps. Human-in-the-loop expert escalation is a Nova skill, not a separate web form.</p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="goals">
+  <h2><span class="num">07</span>Goals, in SMART form</h2>
+  <p class="lede">Six twelve-month targets. Specific, measurable, each tied to a KPI from §12.</p>
+
+  <ol>
+    <li><strong>Catalogue depth.</strong> 500 live audited listings in the first 12 months (vs Vibe96's current 68), with ≥40% submitted directly from a connected GitHub repository that triggers a continuous audit.</li>
+    <li><strong>Buyer conversion.</strong> Reach 2.5% view-to-paid conversion on listings with a sandbox button. Measure your own baseline in Phase 1, before the sandbox ships, so the lift is provable.</li>
+    <li><strong>Trust re-score latency.</strong> Every live listing re-scored at most 24 hours after a new CVE lands in NVD/OSV against any pinned dependency.</li>
+    <li><strong>Deployment velocity.</strong> p50 time-from-paid-to-live under 15 minutes on serverless tier; p95 under 2 hours on container tier; VPS stays at 48 working-hour human SLA with auto-credit on breach.</li>
+    <li><strong>Builder payout cadence.</strong> Weekly Stripe Connect payouts with no minimum in every country Stripe Connect supports, plus Wise or Payoneer for builders elsewhere (Bangladesh and Pakistan, for example, are a large share of this builder audience). Earnings visible in a real-time dashboard.</li>
+    <li><strong>Platform margin.</strong> Reach $120K monthly gross profit by month 12 across marketplace commission, hosting margin, AI studio margin, and expert escrow fee. Mix: ~40% marketplace, ~35% hosting, ~15% AI studio, ~10% experts.</li>
+  </ol>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="arch">
+  <h2><span class="num">08</span>Reference architecture</h2>
+  <p class="lede">Concrete Vercel-native stack. Chosen because this is the one platform that lets a two-person team ship marketplace + sandbox + AI studio + deploy pipeline without re-inventing the primitives.</p>
+
+  <h3>Frontend and edge</h3>
+  <ul>
+    <li><strong>Next.js 16 App Router</strong> with <strong>Partial Prerendering (PPR)</strong> and <strong>Cache Components</strong> on Vercel. Marketplace shell static; cart, account, live quality score stream in.</li>
+    <li><strong>Routing Middleware</strong> for geolocation (currency selection), A/B via Flags SDK, auth gating, bot-detection pre-route (Vercel BotID).</li>
+    <li><strong>shadcn + Tailwind</strong>, dark mode default, 15+ locale <code>next-intl</code>, <code>next/image</code> and <code>next/font</code>.</li>
+  </ul>
+
+  <h3>Compute</h3>
+  <ul>
+    <li><strong>Vercel Functions on Fluid Compute</strong>, Node 24 LTS, up to 5 GB bundle. Handles API, image processing, Playwright-driven demo-health checks, Python ML for embedding generation.</li>
+    <li><strong>Vercel Sandbox</strong> for try-before-buy environments. Spin a real build of the listed source with seed data, scoped to a SKU, 24-hour TTL.</li>
+    <li><strong>Vercel WebSockets</strong> for Nova streaming sessions and collaborative Vibe Studio edits.</li>
+  </ul>
+
+  <h3>Durable workflows</h3>
+  <ul>
+    <li><strong>Workflow 5 WorkflowAgent</strong> (from <code>@ai-sdk/workflow</code>) for every long-running pipeline — audit → review → publish, purchase → provision → DNS → SSL → smoke test → handover, release → diff → canary → promote → notify. Deterministic retries, time-travel debug.</li>
+    <li><strong>Vercel Queues</strong> for at-least-once events: <code>listing.published</code>, <code>order.paid</code>, <code>deployment.ready</code>, <code>audit.cve_detected</code>, <code>payout.scheduled</code>.</li>
+    <li><strong>Vercel Cron</strong> for weekly re-scores, nightly CVE sweeps, demo-URL pings, Monday payout runs.</li>
+  </ul>
+
+  <h3>Data</h3>
+  <ul>
+    <li><strong>Neon Postgres</strong> via Vercel Marketplace, with branch-per-preview and point-in-time recovery to the minute. Replaces nightly VPS backup outright.</li>
+    <li><strong>pgvector</strong> on the same cluster for embeddings of README + architecture + feature list of every listing. Backs hybrid semantic + lexical search.</li>
+    <li><strong>Vercel Blob (private)</strong> for source archives and release artifacts; signed with <strong>Vercel KMS</strong>.</li>
+    <li><strong>Global Config</strong> (formerly Edge Config) for featured-shelf IDs, kill switches, global banner.</li>
+  </ul>
+
+  <h3>AI stack</h3>
+  <ul>
+    <li><strong>AI SDK 7 + Vercel AI Gateway</strong> fronts every LLM call. Model routing by task shape, BYOK for enterprise buyers, zero-retention mode, per-user spend caps.</li>
+    <li><strong>eve</strong> for Nova: durable session per project, filesystem, tools (git, test runner, deploy, image gen), skills (restyle, add-page, add-integration), subagents, schedules, evals.</li>
+    <li>Published eval set: 50 real customisation tasks, re-run weekly, score shown on the Studio page.</li>
+  </ul>
+
+  <h3>Commerce and payouts</h3>
+  <ul>
+    <li><strong>Stripe Checkout + Connect Express + Stripe Tax</strong> — multi-currency, 100+ VAT/GST/Sales-Tax jurisdictions, weekly payouts.</li>
+    <li>Or <strong>Lemon Squeezy</strong> as Merchant of Record for the first six months while Stripe Tax is tuned.</li>
+    <li>Stripe Billing for hosting instalments.</li>
+  </ul>
+
+  <h3>Trust / audit engine</h3>
+  <ul>
+    <li>Audit pipeline runs as a Workflow 5 agent against every new push to a connected builder repo. Produces: 6-axis Vibe96-style score, SBOM in SPDX JSON, CVE list from OSV, license-compat (SPDX scanning), test-coverage summary (if lcov present), code-complexity signal (ESLint complexity, PHPStan level, Roslyn analyzers).</li>
+    <li>Nightly re-score cron hits every live listing against the current OSV feed; demotes the badge and emails the builder on regression.</li>
+    <li>Demo-URL health ping every 5 min — status rolls into the badge.</li>
+  </ul>
+
+  <h3>Deployment paths (the Get it Live successor)</h3>
+  <div class="table-wrap">
+    <table>
+      <caption>Three tiers, chosen at checkout</caption>
+      <thead><tr><th>Tier</th><th>Fit</th><th>Pricing shape</th><th>Backup / DR</th></tr></thead>
+      <tbody>
+        <tr><td>Vercel Deploy (serverless + edge)</td><td>Next.js, Nuxt, SvelteKit, Astro, Python Fluid, Node APIs</td><td>Usage-priced, scale-to-zero</td><td>Neon PITR + Blob versioning</td></tr>
+        <tr><td>Managed container (Fly / Railway / Render via Marketplace)</td><td>Laravel + MySQL, ASP.NET + SQL Server, Rails, Django</td><td>Flat monthly, scale-with-use</td><td>Volume snapshots + Neon PITR</td></tr>
+        <tr><td>Private VPS (current offering kept)</td><td>Compliance-first, dedicated metal</td><td>Prepaid 3/6/12mo</td><td>Daily off-server + PITR option</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Developer platform (the lever that creates the moat)</h3>
+  <ul>
+    <li>Public REST + Webhooks API with OpenAPI 3.1, SDKs for TypeScript and Python.</li>
+    <li>Events: <code>listing.*</code>, <code>order.*</code>, <code>deployment.*</code>, <code>release.*</code>, <code>payout.*</code>, <code>audit.*</code>.</li>
+    <li>CLI (<code>vibe deploy</code>, <code>vibe fork</code>, <code>vibe audit</code>) wrapping the API.</li>
+    <li>GitHub App for builders — every push triggers audit + re-score, releases become drafts automatically with LLM-generated changelogs.</li>
+    <li><strong>MCP server</strong> so Cursor, Claude Code, Codex and v0 can list, buy, deploy, and query from inside the user's IDE. This is the single most strategic surface in the whole stack.</li>
+  </ul>
+
+  <h3>Expert marketplace (two-sided labour layer)</h3>
+  <ul>
+    <li>Expert profile pages with portfolio, verified Vibe96 projects worked on, response time, rate card, time-zone, calendar.</li>
+    <li>Pay for outcome (fixed-bid, escrow) or pay for time, with built-in time-logging.</li>
+    <li>Nova auto-escalation: when a Studio task exceeds a complexity threshold, Nova drafts a brief, prices it, routes to a shortlist, buyer picks.</li>
+  </ul>
+
+  <h3>Observability</h3>
+  <ul>
+    <li><strong>Vercel Observability + Custom Metrics</strong> for marketplace KPIs: view→buy funnel, p95 TTFB per route, Nova task success, audit false-positive rate.</li>
+    <li>Sentry for client/server errors.</li>
+    <li>Public status page on <code>status.&lt;domain&gt;</code> — Uptime Robot or BetterStack behind it, auto-populated from Vercel + Neon health.</li>
+    <li><strong>Flags SDK + Vercel Flags</strong> on every rollout: new listing layout, new pricing display, new audit scoring algorithm.</li>
+    <li><strong>Vercel BotID + Firewall + Passport</strong> for fraud, scraping defense, enterprise SSO on managed deployments.</li>
+  </ul>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="roadmap">
+  <h2><span class="num">09</span>The twelve-month roadmap</h2>
+  <p class="lede">Six phases. Each one ships value on its own; each one unlocks the next. The ordering is deliberate — Trust before Scale, Scale before AI depth.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 0</span><span class="ph-weeks">Weeks 0–4</span></div>
+      <h3>Foundations</h3>
+      <p class="lede">Lift the surface to modern. Nothing visible to buyers that reads as "AI-built website."</p>
+      <ul>
+        <li>Next.js 16 on Vercel. PPR on home + search + listing routes. shadcn + Tailwind, dark mode, 5 initial locales, currency selector.</li>
+        <li>Neon Postgres live, schema v1, categories and listings seeded from a CSV import of competitor data.</li>
+        <li>Clerk auth with GitHub + Google + Microsoft + Apple + Email magic-link.</li>
+        <li>Stripe Checkout live for a single $0 placeholder SKU, so the end-to-end funnel is wired before any real listing.</li>
+        <li>Public <code>status.&lt;domain&gt;</code> live, even if green on everything.</li>
+        <li>CI/CD on GitHub Actions → Vercel preview per PR, Rolling Releases on main.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 1</span><span class="ph-weeks">Weeks 5–10</span></div>
+      <h3>MVP marketplace</h3>
+      <p class="lede">A credible, searchable catalogue with 50 seeded listings and a working one-time-licence buy flow.</p>
+      <ul>
+        <li>Listing CRUD for builders. GitHub-connect flow that imports README, package manifests, screenshots.</li>
+        <li>Hybrid search: lexical via Postgres full-text, vector via pgvector, re-ranked by recency + score.</li>
+        <li>"Describe your problem" agent on <code>/search</code> that returns a ranked shortlist with explanations (AI SDK 7, Gateway).</li>
+        <li>Buyer reviews, verified-purchase gating, builder right-of-reply.</li>
+        <li>Compare page, unlimited products, dep-count + test-coverage + last-updated comparisons.</li>
+        <li>Code preview: Monaco in-browser, read-only, hash-sampled files (architecture, routes, migrations) accessible pre-purchase.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 2</span><span class="ph-weeks">Weeks 11–16</span></div>
+      <h3>Trust engine</h3>
+      <p class="lede">The audit becomes a stream. Buyers can touch the code before they pay. Refunds exist.</p>
+      <ul>
+        <li>Audit worker (Workflow 5 WorkflowAgent) runs on every GitHub push for connected repos: 6-axis score, SBOM in SPDX, OSV CVE scan, license-compat, test-coverage.</li>
+        <li>Nightly re-score cron. Badge demotion + email on regression.</li>
+        <li>Demo-URL health monitor every 5 min; listings auto-warn on stale.</li>
+        <li><strong>Try-before-buy sandbox</strong> on every listing: Vercel Sandbox boots real source + seed data, 24h TTL. Rate-limited to prevent abuse.</li>
+        <li>Refund policy ships: 7-day under $200, 30-day store-credit above.</li>
+        <li>Public quality time-series on each listing (last 90 days of score).</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 3</span><span class="ph-weeks">Weeks 17–22</span></div>
+      <h3>Deployment engine</h3>
+      <p class="lede">Three deployment tiers. Preview URLs per release. The 48-hour SLA becomes a 15-minute automated flow for serverless.</p>
+      <ul>
+        <li>Vercel Deploy tier: one-click fork to buyer's GitHub, Vercel project created, Neon branch provisioned, DNS and SSL wired, smoke test, hand-over. p50 ≤ 15 min.</li>
+        <li>Managed-container tier via Fly / Railway Marketplace integration.</li>
+        <li>Private VPS kept, but orchestrated by the same Workflow 5 pipeline, with auto-credit on 48h breach.</li>
+        <li>Preview deployment per builder release, with LLM-generated changelog diff.</li>
+        <li>Status page populated from real signals.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 4</span><span class="ph-weeks">Weeks 23–28</span></div>
+      <h3>AI studio</h3>
+      <p class="lede">Nova rebuilt on eve, routed through AI Gateway, with human escalation and a published eval harness.</p>
+      <ul>
+        <li>Per-project durable eve session with filesystem, git, deploy skills.</li>
+        <li>AI Gateway: Claude (code), GPT (images), Gemini (long-context), transparent fallback, per-task spend cap and monthly budget cap.</li>
+        <li>Design-preview flow kept and polished; cost estimate before each task.</li>
+        <li>Expert escalation as an eve skill: when complexity exceeds threshold, auto-draft brief, auto-price, route to shortlist.</li>
+        <li>Published eval harness: 50 real customisation tasks, re-run weekly, pass-rate shown on <code>/vibe-studio</code>.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 5</span><span class="ph-weeks">Weeks 29–36</span></div>
+      <h3>Platform</h3>
+      <p class="lede">The marketplace stops being a website and becomes an API with a website.</p>
+      <ul>
+        <li>Public REST + Webhooks API with OpenAPI 3.1 + TS/Python SDKs.</li>
+        <li>CLI (<code>vibe</code>) wrapping the API.</li>
+        <li>GitHub App for builders — audit on push, LLM changelog, release drafts.</li>
+        <li>MCP server. Working in Cursor / Claude Code / v0, a dev can <code>vibe search "POS for car wash"</code>, pick, deploy, iterate.</li>
+        <li>Builder analytics dashboard with funnel, A/B via Flags SDK, price-elasticity suggestions.</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">PHASE 6</span><span class="ph-weeks">Weeks 37–52</span></div>
+      <h3>Growth</h3>
+      <p class="lede">Modules, agencies, enterprise, international.</p>
+      <ul>
+        <li>Module / plugin sub-marketplace: builders sell reusable adapters (Stripe, auth kits, invoicing) that other builders drop into templates for a revenue share.</li>
+        <li>Agency plan: $99/mo covers unlimited client deployments; thin per-deployment commission to builder.</li>
+        <li>Enterprise tier with Vercel Passport SSO, custom DPA, dedicated support channel, custom audit rules.</li>
+        <li>Full i18n (15 locales minimum), full tax engine (100+ jurisdictions via Stripe Tax or Lemon Squeezy MoR), full-currency pricing.</li>
+        <li>Referral program with store credit.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="commerce">
+  <h2><span class="num">10</span>Pricing, licensing, and business model</h2>
+
+  <h3>Marketplace commission ladder (replaces flat 35%)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Builder lifetime gross</th><th>Platform take</th><th>Builder take</th></tr></thead>
+      <tbody>
+        <tr><td>$0 – $5,000</td><td class="num">30%</td><td class="num">70%</td></tr>
+        <tr><td>$5,001 – $25,000</td><td class="num">25%</td><td class="num">75%</td></tr>
+        <tr><td>$25,001 – $100,000</td><td class="num">20%</td><td class="num">80%</td></tr>
+        <tr><td>$100,001+</td><td class="num">15%</td><td class="num">85%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>This beats CodeCanyon's 50% take at every tier and rewards the top-of-funnel builders you most want to attract. Combined with weekly payouts and no minimum, the pitch to builders writes itself.</p>
+
+  <h3>Buyer price ladder</h3>
+  <p>Keep one-time single-site licence as the primary SKU. Add an optional <strong>Perpetual Updates</strong> upgrade (+40% of base price, +12 months of builder updates after the first year). Add a <strong>Multi-site licence</strong> upgrade (+100% of base price). Add an <strong>Agency licence</strong> at $99/mo covering unlimited client deployments.</p>
+
+  <h3>Hosting pricing</h3>
+  <p>Serverless tier: usage-priced, no monthly minimum, free credit $5 to new buyers. Container tier: $19–$149/mo flat. VPS tier: current Vibe96 pricing kept. Hosting-adjacent revenue: $19/mo preview-environments pack, $9/mo custom-domain pack if the buyer is on serverless.</p>
+
+  <h3>AI studio pricing</h3>
+  <p>Pay-as-you-go via AI Gateway margin: 15% markup over provider cost, with transparent per-task estimates. Monthly budget cap required. First $5 free on sign-up, matches Vibe96 to blunt comparison, improves on it with real budget controls.</p>
+
+  <h3>Expert layer</h3>
+  <p>Vibe96's rates kept as a starting point; experts set their own rate after joining. Platform fee: 15% on fixed-price work (through escrow), 10% on hourly (through time-tracked logs). Introduction stays free.</p>
+
+  <h3>Licence</h3>
+  <p>Keep Vibe96's licence structure almost verbatim — it's a sound text. Three edits: (a) governing law becomes a buyer-choice between DIFC, England &amp; Wales, and Delaware; (b) Vibe96's indemnity clause 9A is widened to also cover automated-audit-passed open-source license mis-attribution; (c) add a 7-day cooling-off right for consumer buyers in the EU/UK that overrides "all sales final" where law requires.</p>
+</section>
+
+<!-- ============ 11 ============ -->
+<section id="team">
+  <h2><span class="num">11</span>Team, budget, and go-to-market</h2>
+
+  <h3>Minimum team to execute the 12-month plan</h3>
+  <ul>
+    <li><strong>Founder / CEO</strong> — commercial, builder recruiting, GTM.</li>
+    <li><strong>Founding engineer / CTO</strong> — architecture, Phases 0–3.</li>
+    <li><strong>Senior full-stack engineer</strong> — audit engine, sandbox, deployment pipeline.</li>
+    <li><strong>AI engineer</strong> — Nova on eve, AI Gateway integration, eval harness.</li>
+    <li><strong>Product designer</strong> (contract or senior) — all the UI from Phase 1 onwards.</li>
+    <li><strong>Marketplace ops lead</strong> — human review of listings, builder support, dispute handling. Can start fractional.</li>
+    <li><strong>Content / SEO lead</strong> (part-time) — the guides and comparison pages that drive organic.</li>
+  </ul>
+  <p>Seven people, five of them full-time, is enough for this plan. With fewer, cut Phase 6 and push Phase 5 to month 12.</p>
+
+  <h3>Budget sketch (12 months, USD)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Line</th><th>Annual</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Salaries (5 FTE + 2 contract)</td><td class="num">$620,000</td><td>Mix of senior Dubai / remote EU rates</td></tr>
+        <tr><td>Infra (Vercel, Neon, Stripe, Sentry, AI Gateway)</td><td class="num">$36,000</td><td>Grows with usage; most is pass-through</td></tr>
+        <tr><td>LLM spend (AI Studio incentives, Nova evals)</td><td class="num">$42,000</td><td>Reselling at margin after month 6</td></tr>
+        <tr><td>Legal (DIFC + GDPR DPA + Stripe tax setup)</td><td class="num">$28,000</td><td></td></tr>
+        <tr><td>Marketing (SEO content, YouTube spend, dev-tool partnerships)</td><td class="num">$80,000</td><td></td></tr>
+        <tr><td>Builder bonuses (replaces Vibe96's $60)</td><td class="num">$24,000</td><td>$100/first-live-listing × 240</td></tr>
+        <tr><td>Expert review for first 300 listings</td><td class="num">$18,000</td><td>$60/listing average</td></tr>
+        <tr><td>Reserve</td><td class="num">$52,000</td><td></td></tr>
+        <tr><th>Total</th><th class="num">$900,000</th><th>Pre-seed round of $1–1.2M covers it with runway cushion</th></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>GTM, in order of leverage</h3>
+  <ol>
+    <li><strong>Builder recruitment first.</strong> Buyers do not come without supply. Reach out to the AI-coding YouTube audience (Bangla-language channels like Learn with Sumit already proved this audience responds), to the Lovable, Base44 and Replit communities, and to indie SaaS builders on X and Reddit. Offer a $100 first-live-listing bonus (Vibe96 offers $50), weekly payouts and a lower take.</li>
+    <li><strong>MCP server as a wedge.</strong> Launch into Cursor, Claude Code, v0 users first — "search and deploy audited AI-built apps from your IDE." That audience converts well because they already live in the agentic workflow this product fits inside.</li>
+    <li><strong>Partnerships.</strong> Vercel partnership (co-marketing around AI-SDK, eve, Sandbox), Clerk auth partnership, Stripe partnership. Each unlocks a case study.</li>
+    <li><strong>SEO.</strong> Vibe96's guide pattern is right (deploy-Lovable, deploy-Bolt, etc.). Expand aggressively — a page per deploy-X and fix-X-app, each with a working try-before-buy demo.</li>
+    <li><strong>Comparison content.</strong> Honest head-to-head with Vibe96, CodeCanyon, Flippa, Acquire. Comparison pages convert.</li>
+  </ol>
+</section>
+
+<!-- ============ 12 ============ -->
+<section id="kpis">
+  <h2><span class="num">12</span>KPIs and success metrics</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Metric</th><th>Baseline (Vibe96)</th><th>Target month 6</th><th>Target month 12</th></tr></thead>
+      <tbody>
+        <tr><td>Live audited listings</td><td class="num">68</td><td class="num">220</td><td class="num">500</td></tr>
+        <tr><td>Active builders (listed within 30d)</td><td class="num">24</td><td class="num">90</td><td class="num">180</td></tr>
+        <tr><td>View→paid conversion</td><td class="num">not published</td><td class="num">1.5%</td><td class="num">2.5%</td></tr>
+        <tr><td>Try-before-buy → paid conversion</td><td class="num">n/a</td><td class="num">8%</td><td class="num">14%</td></tr>
+        <tr><td>p50 time paid → live (serverless)</td><td class="num">48 working h (SLA)</td><td class="num">30 min</td><td class="num">15 min</td></tr>
+        <tr><td>Audit re-score latency on new CVE</td><td class="num">only on new version</td><td class="num">48 h</td><td class="num">24 h</td></tr>
+        <tr><td>Builder payout cadence</td><td>Monthly, $200 min</td><td>Weekly, no min</td><td>Weekly, no min</td></tr>
+        <tr><td>Monthly gross revenue</td><td class="num">not published</td><td class="num">$45k</td><td class="num">$120k</td></tr>
+        <tr><td>Platform NPS (buyer)</td><td class="num">n/a</td><td class="num">45</td><td class="num">55</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section id="risks">
+  <h2><span class="num">13</span>Risks and open questions</h2>
+
+  <h3>Strategic risks</h3>
+  <ul>
+    <li><strong>Builder adds marketplace first.</strong> Lovable or Replit launches a template exchange and keeps all the value. Mitigation: ship MCP + GitHub App early so the <em>distribution</em> flows through you no matter which builder made the code.</li>
+    <li><strong>Vibe96 wakes up.</strong> They have 68 listings' worth of head start on supply and a documented audit rubric. Mitigation: a public, time-series quality score is a feature they would have to retrofit, which is slower than you shipping it fresh.</li>
+    <li><strong>Trust failure.</strong> One listing with a credential-stealing payload reaches a buyer and the story kills the brand. Mitigation: audit worker runs in a hardened sandbox; code preview is read-only hash-sampled; sandbox demo runs scoped-to-SKU with no outbound egress.</li>
+  </ul>
+
+  <h3>Operational risks</h3>
+  <ul>
+    <li><strong>Human-review bottleneck.</strong> Scaling listing review beyond 20/week is hard. Mitigation: automated audit covers 85% of decisions; human review becomes an exception path.</li>
+    <li><strong>LLM cost blow-up.</strong> Nova running unbounded cooks a buyer's balance. Mitigation: hard per-task caps, per-user monthly caps, estimate before start, show real cost after.</li>
+  </ul>
+
+  <h3>Legal risks</h3>
+  <ul>
+    <li><strong>Open-source licence contamination.</strong> A listing's audit misses GPL-covered code; buyer ships commercial on top. Mitigation: SPDX scanning is a required audit gate.</li>
+    <li><strong>VAT / tax across 100 jurisdictions.</strong> Mitigation: Lemon Squeezy MoR for the first six months reduces this to zero.</li>
+    <li><strong>Hosting liability.</strong> A buyer's app loses data on your tier. Mitigation: clear DPA, PITR on Neon, Blob versioning, documented RPO/RTO per tier.</li>
+  </ul>
+</section>
+
+<!-- ============ 14 ============ -->
+<section id="next">
+  <h2><span class="num">14</span>What to do this week</h2>
+  <p class="lede">Six concrete steps that establish momentum before any funding conversation.</p>
+  <ol>
+    <li><strong>Register the trading name and domain.</strong> Buy two or three candidates. If serious about founding, incorporate in a jurisdiction that gives optionality (Delaware C-Corp if US-raise intended; UK Ltd + DIFC if Gulf-focused).</li>
+    <li><strong>Scaffold the Next.js 16 + Vercel + Neon skeleton</strong> in the directory you already opened for this. One day's work. Push to GitHub, deploy to Vercel preview, so you have a URL to show.</li>
+    <li><strong>Write the audit rubric.</strong> Vibe96's six axes are a sensible baseline. Add two: license-compat (SPDX scan) and performance-budget (Lighthouse LCP ≤ 2.5s on seed demo).</li>
+    <li><strong>Prototype the sandbox.</strong> One Vercel Sandbox call that boots a known Next.js repo with seed data and returns a 24-hour URL. This is the demo you show to builder prospects.</li>
+    <li><strong>Pick 20 builder prospects.</strong> Look in the comment sections of vibe-coding videos, among builders already selling on CodeCanyon and Gumroad, and in the Lovable and Replit showcases. Reach out with a $100 first-listing bonus and a 70% share. Ten yeses are enough to seed the catalogue.</li>
+    <li><strong>Draft the one-pager</strong> that will become the fundraising deck. Thesis + market + architecture + roadmap + team + ask. The dossier you are reading is 80% of its content already.</li>
+  </ol>
+
+  <p class="callout good">
+    <strong>Final read.</strong> Vibe96's own live figure of <em>2 apps deployed for customers</em> sums up the opportunity. The pitch is good and the execution is still open. Building this is a bet that you can ship the automated pieces in twelve months faster than an incumbent can retrofit them, and that AI-coding tools will reward whoever ships the API-first version first.
+  </p>
+</section>
+
+<footer>
+  <p>Vibe96 Successor Blueprint · prepared 27 October 2026.</p>
+  <p>Sources: signed-out inspection of vibe96.com (home, search, product pages, Get it Live, hosting servers, hosting security, experts, developers, sell, how it works, Vibe Studio, AI assistants, about, licence, blog, sitemap); the description of the Learn with Sumit explainer (17 October 2026; the video has no captions, so its audio was not reviewed); and web research on CodeCanyon, Flippa, Acquire.com, ExitBid, Lovable, Base44, Replit, VibeChex and SBOM tooling. Signed-in dashboards, checkout and the builder workspace were not tested. Competitor figures come from secondary sources and should be checked before use in a pitch.</p>
+</footer>
+
+</main>
+
+</html>

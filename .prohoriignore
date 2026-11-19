@@ -1,0 +1,4 @@
+# Prohori scans its own repository. Every entry needs a reason; suppressed findings stay listed in the report.
+# Format: <rule-id or *> [<path prefix>]: <reason>
+* packages/audit-engine/test/: test fixtures contain intentional vulnerabilities and assembled fake keys
+* apps/web/lib/demo-projects.ts: intentionally vulnerable sample project used by the "try a demo scan" button

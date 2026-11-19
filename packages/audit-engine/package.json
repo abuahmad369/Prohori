@@ -1,0 +1,20 @@
+{
+  "name": "@prohori/audit-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Audit engine for AI-built apps: secrets, access control, code safety, dependencies, scoring, SARIF and CycloneDX SBOM.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "prohori": "./src/cli.ts"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

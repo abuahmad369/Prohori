@@ -1,0 +1,23 @@
+{
+  "name": "prohori",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prohori: the trust layer for AI-built software",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "pnpm --filter @prohori/audit-engine test",
+    "typecheck": "pnpm -r typecheck",
+    "dev": "pnpm --filter @prohori/web dev",
+    "build": "pnpm --filter @prohori/web build",
+    "start": "pnpm --filter @prohori/web start",
+    "scan": "node --disable-warning=ExperimentalWarning packages/audit-engine/src/cli.ts scan",
+    "scan:self": "node --disable-warning=ExperimentalWarning packages/audit-engine/src/cli.ts scan . --fail-on none"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "~5.9.3"
+  }
+}

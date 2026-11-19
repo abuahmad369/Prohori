@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Vibe96 উত্তরসূরি ব্লুপ্রিন্ট</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Bangla reading dossier: one comfortable text column, wide tables scroll inside their own box.
+     Burnt orange marks section numerals, callouts and critical rows. */
+  :root {
+    --bg: #FAFAF6;
+    --fg: #15181C;
+    --muted: #5A636C;
+    --faint: #858C94;
+    --rule: #DFDED6;
+    --tint: #F2F0E7;
+    --accent: #B2420A;
+    --good: #2E6B3C;
+    --warn: #8A5A0A;
+    --bad:  #9B2A1C;
+    --code-bg: #ECEAE1;
+    color-scheme: light;
+
+    --font-display: "Noto Serif Bengali", "Hind Siliguri", Georgia, serif;
+    --font-body: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1013;
+      --fg: #EDECE4;
+      --muted: #A0A7AF;
+      --faint: #737A81;
+      --rule: #24282D;
+      --tint: #171A1E;
+      --accent: #E4793F;
+      --good: #7FBF8B;
+      --warn: #E0B06A;
+      --bad:  #E78473;
+      --code-bg: #1B1F23;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1013;
+    --fg: #EDECE4;
+    --muted: #A0A7AF;
+    --faint: #737A81;
+    --rule: #24282D;
+    --tint: #171A1E;
+    --accent: #E4793F;
+    --good: #7FBF8B;
+    --warn: #E0B06A;
+    --bad:  #E78473;
+    --code-bg: #1B1F23;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 17.5px;
+    line-height: 1.85;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 48px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 760px; margin: 0 auto; }
+  main * { min-width: 0; }
+
+  .masthead { border-bottom: 1px solid var(--rule); padding-bottom: 28px; margin-bottom: 36px; }
+  .eyebrow { font-size: 14px; font-weight: 600; color: var(--accent); margin: 0 0 12px; }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.3;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .dek {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(17px, 1.8vw, 20px);
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0 0 18px;
+    max-width: 62ch;
+  }
+  .byline { font-size: 14px; color: var(--faint); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .byline a { color: var(--accent); }
+
+  nav.toc { border: 1px solid var(--rule); background: var(--tint); padding: 20px 22px; margin: 0 0 16px; border-radius: 2px; }
+  nav.toc h2 { font-size: 14px; font-weight: 700; color: var(--muted); margin: 0 0 10px; }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; display: grid; gap: 4px; }
+  nav.toc li { counter-increment: toc; display: flex; gap: 14px; align-items: baseline; margin: 0; }
+  nav.toc li::before {
+    content: counter(toc, bengali);
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--accent);
+    flex: 0 0 1.6em;
+    text-align: right;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+  nav.toc a:hover, nav.toc a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+  .toc-note { font-size: 14.5px; color: var(--muted); margin: 0 0 48px; }
+
+  section { margin-block: 60px; scroll-margin-top: 16px; }
+  section > h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(24px, 3.2vw, 31px);
+    line-height: 1.4;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  section > h2 .num { font-size: 0.62em; color: var(--accent); margin-right: 10px; font-weight: 500; }
+  section > .lede { color: var(--muted); font-size: 16px; margin: 0 0 26px; max-width: 62ch; }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 20.5px;
+    line-height: 1.5;
+    margin: 34px 0 10px;
+    text-wrap: balance;
+  }
+  h4 { font-size: 16px; font-weight: 700; color: var(--muted); margin: 0 0 6px; }
+
+  p { margin: 0 0 14px; }
+  strong { font-weight: 700; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 2px;
+    word-break: break-word;
+  }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 22px 0;
+    padding: 2px 0 2px 18px;
+    font-family: var(--font-display);
+    font-size: 19px;
+    line-height: 1.75;
+  }
+  ul, ol { margin: 0 0 16px; padding-left: 26px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+
+  .table-wrap { margin: 20px 0; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.65; min-width: 560px; }
+  caption { text-align: left; font-size: 14.5px; color: var(--muted); padding: 0 0 8px; font-weight: 700; }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+  thead th { font-size: 14px; color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--fg); }
+  tbody tr:last-child td, tbody tr:last-child th { border-bottom: 1px solid var(--fg); }
+  .num-col { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .callout { border-left: 3px solid var(--accent); background: var(--tint); padding: 16px 18px; margin: 24px 0; font-size: 16px; }
+  .callout.good { border-left-color: var(--good); }
+  .callout.bad { border-left-color: var(--bad); }
+
+  .pill {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 9px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .pill.good { color: var(--good); }
+  .pill.warn { color: var(--warn); }
+  .pill.bad  { color: var(--bad); }
+  .pill.flat { color: var(--muted); }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 20px 0; }
+  .kpi { background: var(--bg); padding: 14px 16px; }
+  .kpi .lbl { font-size: 14px; color: var(--muted); font-weight: 600; margin: 0 0 2px; line-height: 1.5; }
+  .kpi .val { font-family: var(--font-display); font-size: 26px; font-weight: 600; margin: 0; line-height: 1.4; }
+  .kpi .sub { font-size: 13.5px; color: var(--muted); margin: 2px 0 0; line-height: 1.5; }
+
+  .phases { display: grid; gap: 14px; margin: 24px 0 10px; }
+  .phase { border: 1px solid var(--rule); padding: 16px 18px; border-radius: 2px; }
+  .phase .ph-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+  .phase .ph-num { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .phase .ph-weeks { font-size: 14px; color: var(--muted); }
+  .phase h3 { margin: 0; font-size: 19.5px; }
+  .phase .ph-lede { color: var(--muted); font-size: 15.5px; margin: 4px 0 10px; }
+  .phase ul { margin-bottom: 0; }
+
+  dl.glossary { display: grid; grid-template-columns: minmax(130px, 200px) 1fr; gap: 0; margin: 20px 0; border-top: 1px solid var(--fg); }
+  dl.glossary dt, dl.glossary dd { padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0; }
+  dl.glossary dt { font-weight: 700; padding-right: 16px; }
+  @media (max-width: 520px) {
+    body { padding-block: 32px 72px; font-size: 16.5px; }
+    dl.glossary { grid-template-columns: 1fr; }
+    dl.glossary dt { border-bottom: 0; padding-bottom: 0; }
+  }
+
+  footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14.5px; }
+</style>
+
+<main lang="bn">
+
+<header class="masthead">
+  <p class="eyebrow">কৌশলপত্র · নতুন মার্কেটপ্লেস গড়ার পরিকল্পনা</p>
+  <h1>Vibe96 উত্তরসূরি ব্লুপ্রিন্ট</h1>
+  <p class="dek">২০২৬ সালের অক্টোবরে vibe96.com-এর একটি সিনিয়র আর্কিটেক্ট পর্যায়ের অডিট, তারপর আরও শক্তিশালী একটি উত্তরসূরি প্ল্যাটফর্ম গড়ার লক্ষ্য, আর্কিটেকচার এবং বারো মাসের কাজের পরিকল্পনা।</p>
+  <p class="byline">
+    <span>ভবিষ্যৎ প্রতিষ্ঠাতার জন্য প্রস্তুত</span>
+    <span>বিষয়: vibe96.com, পরিচালনায় Vibe96 FZ-LLC / Royex Technologies, দুবাই</span>
+    <span>পড়তে সময় লাগবে প্রায় ৩৫ মিনিট</span>
+    <span><a href="https://claude.ai/artifact/MWAJMVTCCzKnbJbPjvJUzG">ইংরেজি সংস্করণ</a></span>
+  </p>
+</header>
+
+<nav class="toc" aria-label="সূচিপত্র">
+  <h2>সূচিপত্র</h2>
+  <ol>
+    <li><a href="#summary">সারসংক্ষেপ</a></li>
+    <li><a href="#whatisit">২০২৬ সালের অক্টোবরে Vibe96 আসলে কী</a></li>
+    <li><a href="#surfaces">প্রতিটি অংশের অডিট</a></li>
+    <li><a href="#market">প্রতিযোগিতার চিত্র</a></li>
+    <li><a href="#gaps">ঘাটতির পূর্ণ তালিকা</a></li>
+    <li><a href="#thesis">উত্তরসূরির মূল ভাবনা</a></li>
+    <li><a href="#goals">লক্ষ্য (SMART পদ্ধতিতে)</a></li>
+    <li><a href="#arch">রেফারেন্স আর্কিটেকচার</a></li>
+    <li><a href="#roadmap">বারো মাসের রোডম্যাপ</a></li>
+    <li><a href="#commerce">দাম, লাইসেন্স ও ব্যবসায়িক মডেল</a></li>
+    <li><a href="#team">টিম, বাজেট ও বাজারে প্রবেশ</a></li>
+    <li><a href="#kpis">KPI ও সাফল্যের মাপকাঠি</a></li>
+    <li><a href="#risks">ঝুঁকি ও খোলা প্রশ্ন</a></li>
+    <li><a href="#next">এই সপ্তাহে কী করবেন</a></li>
+    <li><a href="#glossary">শব্দকোষ: প্রযুক্তিগত শব্দের সহজ অর্থ</a></li>
+  </ol>
+</nav>
+<p class="toc-note">কোনো প্রযুক্তিগত শব্দ অপরিচিত লাগলে শেষের <a href="#glossary">শব্দকোষ</a> দেখুন। প্রোডাক্ট ও প্রযুক্তির নাম (যেমন Next.js, Vercel, Stripe) ইংরেজিতেই রাখা হয়েছে।</p>
+
+<!-- ============ ১ ============ -->
+<section id="summary">
+  <h2><span class="num">০১</span>সারসংক্ষেপ</h2>
+  <p>Vibe96 একটা অস্বাভাবিক কাজ ভালোভাবে করছে। AI দিয়ে বানানো সফটওয়্যারের জন্য তাদের একটি স্পষ্ট, নাম দেওয়া অডিট কাঠামো আছে, তার ওপর মানুষের রিভিউ। এটাই তাদের প্রতিরক্ষা দেয়াল (moat), আর এ কারণেই তাদের গুরুত্ব দিয়ে দেখা উচিত। এর চারপাশের প্রায় সবকিছুই দুর্বল, প্রাথমিক পর্যায়ে, অথবা অনুপস্থিত: সফটওয়্যার খুঁজে পাওয়া, ডিপ্লয়মেন্ট, কাস্টমাইজেশন, ক্রেতার আস্থা, বিল্ডারদের আয়ের কাঠামো, এমনকি ওয়েবসাইটের প্রযুক্তিগত দিকও। তাদের নিজেদের প্রকাশিত সংখ্যা (৬৮টি অ্যাপ, বিক্রি করছেন এমন ২৪ জন বিল্ডার, গ্রাহকের জন্য ২টি ডিপ্লয়মেন্ট) দেখায় যে প্রতিষ্ঠানটি এখনো একদম শুরুর পর্যায়ে।</p>
+
+  <p>সুমিত সাহার (Learn with Sumit, ১৭ অক্টোবর ২০২৬) প্রচারণামূলক ভিডিওতে সমস্যাটিকে তিন ভাগে দেখানো হয়েছে: <strong>আস্থা (Trust), বিতরণ (Distribution) এবং ডেলিভারি (Delivery)</strong>। এই ভাগটা সঠিক। কিন্তু বর্তমান প্রোডাক্ট স্লোগানটা দিচ্ছে প্রতিটি স্তম্ভের সবচেয়ে দুর্বল সংস্করণ দিয়ে: একবারের অডিট, প্রায় ৬৮টি লিস্টিংয়ের ওপর কিওয়ার্ড সার্চ, আর প্রিপেইড VPS-এ মানুষের হাতে ৪৮ কর্মঘণ্টার ডিপ্লয়মেন্ট। একটি উত্তরসূরি প্ল্যাটফর্ম এই বাজার দখল করতে পারে প্রতিটি স্তম্ভকে মানুষের হাতে পূরণ করা প্রতিশ্রুতি থেকে স্বয়ংক্রিয় ব্যবস্থায় বদলে দিয়ে: এমন কোয়ালিটি স্কোর যা নিয়মিত আপডেট হয়, কেনার আগে চালিয়ে দেখার স্যান্ডবক্স, অর্থ বুঝে খোঁজার (semantic) সার্চ, সার্ভারলেস, কন্টেইনার ও VPS তিন স্তরের হোস্টিং, আর ক্রেতার প্রজেক্টের ভেতরে থাকা একটি টেকসই AI এজেন্ট।</p>
+
+  <p>এই ডসিয়ার সেই উত্তরসূরি গড়ার পরিকল্পনা। এটি লেখা হয়েছে এমন একজন প্রতিষ্ঠাতার জন্য যার একটি টিম আছে, অথবা টিম গড়ার গুরুতর পরিকল্পনা আছে। এখানে স্পষ্ট অবস্থান নেওয়া হয়েছে: নির্দিষ্ট প্রযুক্তি, নির্দিষ্ট বাণিজ্যিক শর্ত এবং প্রথম নব্বই দিনের নির্দিষ্ট কাজের সুপারিশ।</p>
+</section>
+
+<!-- ============ ২ ============ -->
+<section id="whatisit">
+  <h2><span class="num">০২</span>২০২৬ সালের অক্টোবরে Vibe96 আসলে কী</h2>
+  <p class="lede">অবস্থান, আইনি প্রতিষ্ঠান, আকার, টিম এবং আসল প্রোডাক্ট। আপনাকে লড়তে হবে আসল প্রোডাক্টের সঙ্গে, হোমপেজের বিজ্ঞাপনী লেখার সঙ্গে নয়।</p>
+
+  <h3>অবস্থান</h3>
+  <p>Vibe96 নিজেকে উপস্থাপন করে <em>vibe-coded</em> সফটওয়্যারের প্রথম মার্কেটপ্লেস হিসেবে, অর্থাৎ Claude Code, OpenAI Codex, Cursor, Lovable, Bolt এবং এ ধরনের টুল দিয়ে বানানো অ্যাপ। প্রতিটি লিস্টিং লাইভ হওয়ার আগে একটি স্বয়ংক্রিয় সিস্টেম অডিট করে এবং একজন মানুষ রিভিউ করেন। তাদের প্রস্তাব শুরু থেকে শেষ পর্যন্ত: কোড কিনুন, পরিবর্তনের জন্য মানুষ ভাড়া করুন, Vibe96-এর VPS-এ হোস্ট করুন, আর Nova (প্ল্যাটফর্মের ভেতরের AI ডেভেলপার) দিয়ে আপগ্রেড চালিয়ে যান। ক্রেতা পান এককালীন সিঙ্গেল-সাইট লাইসেন্স; বিল্ডার প্রতিটি বিক্রির ৬৫% রাখেন।</p>
+
+  <h3>আইনি ও পরিচালনাগত কাঠামো</h3>
+  <p>লাইসেন্স পেজে মার্কেটপ্লেসের মালিক ও পরিচালক হিসেবে <strong>Royex Technologies LLC, দুবাই, সংযুক্ত আরব আমিরাত</strong>-এর নাম আছে, আর লাইসেন্সটি প্রতিটি বিক্রেতার পক্ষে ইস্যু করা হয়। About পেজে আলাদাভাবে <strong>Vibe96 FZ-LLC</strong>-এর নাম আছে, যা ট্রেডিং প্রতিষ্ঠান। লাইসেন্সের প্রযোজ্য আইন DIFC (দুবাই ইন্টারন্যাশনাল ফিন্যান্সিয়াল সেন্টার)। CEO জন বুশ (John Bush); CTO/COO রাজীব রায় (Rajib Roy)। <code>/seller-agreement</code>-এ বিক্রেতা চুক্তি এবং <code>/service-terms</code>-এ সেবার শর্তাবলি আছে।</p>
+
+  <h3>আকার, তাদের নিজেদের প্রকাশিত লাইভ পরিসংখ্যান থেকে</h3>
+  <div class="kpis">
+    <div class="kpi"><p class="lbl">বিক্রির জন্য অডিট করা অ্যাপ</p><p class="val">৬৮</p><p class="sub">About পেজ; সার্চে দেখা গেছে ৬৬</p></div>
+    <div class="kpi"><p class="lbl">বিক্রি করছেন এমন বিল্ডার</p><p class="val">২৪</p><p class="sub">হোমপেজের দাবি মোট ৭৯০ বিল্ডার</p></div>
+    <div class="kpi"><p class="lbl">গ্রাহকের জন্য ডিপ্লয় করা অ্যাপ</p><p class="val">২</p><p class="sub">About পেজের লাইভ সংখ্যা</p></div>
+    <div class="kpi"><p class="lbl">ক্রেতাদের গড় রেটিং</p><p class="val">৫.০★</p><p class="sub">কতগুলো রিভিউ তা দেখানো নেই</p></div>
+    <div class="kpi"><p class="lbl">লাইভ হওয়ার SLA</p><p class="val">৪৮ কর্মঘণ্টা</p><p class="sub">ক্রেতার সব তথ্য পাওয়ার পর থেকে</p></div>
+    <div class="kpi"><p class="lbl">৩০ দিনে পেজভিউ</p><p class="val">১.৭ লাখ</p><p class="sub">গত ২৪ ঘণ্টায় ৬,৮০২</p></div>
+  </div>
+  <p class="callout bad">
+    <strong>"২টি অ্যাপ ডিপ্লয়" সংখ্যাটা ভালো করে দেখুন।</strong> সাইটের সবচেয়ে অর্থবহ সংখ্যা এটাই। Get it Live, অর্থাৎ যে ম্যানেজড হোস্টিং ব্যবসাকে মূল প্রস্তাবের অর্ধেক হিসেবে দেখানো হয়, তাতে গ্রাহকের জন্য মাত্র দুটি ডিপ্লয়মেন্ট দেখানো হচ্ছে। বড় পরিসরে প্রমাণিত হওয়ার আগেই ডেলিভারি বিক্রি হচ্ছে। এর মানে এই নয় যে Vibe96 ব্যর্থ হচ্ছে। এর মানে বাজারটা এখনো খোলা।
+  </p>
+
+  <h3>প্রোডাক্টের পরিধি</h3>
+  <p>ছয়টি অংশ এখন চালু আছে। সপ্তম অংশ "Grow &amp; scale" About পেজে "আসছে" হিসেবে তালিকাভুক্ত।</p>
+  <ul>
+    <li><strong>সফটওয়্যার কেনা (Buy software)।</strong> ৬৮টি লিস্টিং, ১৫টি ক্যাটাগরি; কোন টুল দিয়ে বানানো (Claude Code / Codex / Cursor / Antigravity / Copilot / Gemini CLI / Lovable), টেক স্ট্যাক ও দাম অনুযায়ী ফিল্টার করা যায়। বেশিরভাগই Laravel ও ASP.NET Core; কিছু Next.js, Electron, Flutter। দাম $২৯ থেকে $৩০০, সঙ্গে ৫% বায়ার ফি এবং (আমিরাতের ক্রেতাদের জন্য) ৫% VAT।</li>
+    <li><strong>Get it Live।</strong> প্রাইভেট Linux বা Windows VPS, মাসে $৮.৫৮ থেকে $১৬১ (৩, ৬ বা ১২ মাস অগ্রিম; ১২ মাসে ১০% ছাড়), যুক্তরাজ্য, যুক্তরাষ্ট্র, জার্মানি বা ভারতের ডেটা সেন্টারে। ৪৮ কর্মঘণ্টার SLA, প্রতিদিন সার্ভারের বাইরে ব্যাকআপ যা ৭ দিন রাখা হয়, ডেটা সেন্টারের দেওয়া ৯৯.৯% আপটাইম গ্যারান্টি, দুবাই সময়ে সাপোর্ট এবং জরুরি টিকিটে ২ ঘণ্টার মধ্যে প্রথম উত্তর।</li>
+    <li><strong>বিশেষজ্ঞ ভাড়া (Hire experts)।</strong> ঘণ্টাভিত্তিক প্যাক ($৭০ থেকে $২০০ প্রতি ঘণ্টা, ন্যূনতম দুই থেকে পাঁচ ঘণ্টা): কনসালট্যান্ট, সিনিয়র ডেভেলপার, ডেভেলপার, DevOps, ডিজাইনার, মোবাইল পাবলিশার। আলাদাভাবে <code>/developers</code> পেজে নির্দিষ্ট দামের (fixed-price) কাজের ব্যবস্থা আছে এসক্রোসহ: টাকা Vibe96-কে দেবেন, কাজ গ্রহণ না করা পর্যন্ত টাকা আটকে থাকে, আর হস্তান্তর করা কোডকে যেকোনো লিস্টিংয়ের মতো একই অডিট পার হতে হয়।</li>
+    <li><strong>বিক্রি করে আয় (Sell &amp; earn)।</strong> বিল্ডাররা কোড ও একটি পাবলিক ডেমো জমা দেন। ছয় দিকের স্বয়ংক্রিয় অডিটে ৭৫/১০০ বা তার বেশি পেতে হয় এবং কোনো চেক ফেল করা যাবে না। তারপর লিস্টিং তৈরি, কমপক্ষে ৫টি স্ক্রিনশট, প্রতিটি প্রজেক্টের জন্য আলাদা বিক্রেতা চুক্তিতে সই, এবং দুবাইয়ে মানুষের রিভিউ (১ থেকে ৩ কর্মদিবস)। ৬৫% ভাগ, লিস্টিং ফি নেই, প্রতি মাসের ৫ তারিখে Wise, Payoneer বা ব্যাংকে পেমেন্ট, ন্যূনতম $২০০, কম হলে পরের মাসে যোগ হয়। স্বাগত ও প্রথম লাইভ বোনাস মিলিয়ে সর্বোচ্চ $৬০।</li>
+    <li><strong>Vibe Studio (বেটা)।</strong> Nova নামের চ্যাটভিত্তিক AI ডেভেলপার ক্রেতার ডিপ্লয় করা প্রজেক্টে কাজ করে, কোড লেখার আগে ডিজাইন প্রিভিউ দেখায়। যত ব্যবহার তত পেমেন্ট (pay-as-you-go), $৫ ফ্রি, $১০ করে টপ-আপ। কোডের জন্য Claude, ছবির জন্য ChatGPT; Kimi ও DeepSeek পরিকল্পনায় আছে।</li>
+    <li><strong>AI সহকারী।</strong> চারটি নামধারী চ্যাট চরিত্র: Vee (ক্রেতার গাইড), Remy (বিল্ডারের সঙ্গী), Axel (টেক সহায়ক), Nova (স্টুডিও ডেভেলপার), সবই চ্যাট উইজেটের ভেতরে। এটা আলাদা প্রোডাক্ট নয়; কয়েকটি বিশেষায়িত চ্যাটবট মাত্র।</li>
+  </ul>
+
+  <h3>নেটওয়ার্ক ট্রেস থেকে অনুমান করা প্রযুক্তিগত চিত্র</h3>
+  <p>এটা বাইরে থেকে করা অনুমান, নিশ্চিত তথ্য নয়। সাইটটি সার্ভারে রেন্ডার হওয়া মাল্টি-পেজ অ্যাপের মতো আচরণ করে: প্রতিটি নেভিগেশনে পুরো পেজ নতুন করে লোড হয়, কোনো ক্লায়েন্ট-ফ্রেমওয়ার্কের হাইড্রেশন চিহ্ন নেই। ব্যাকএন্ড স্ট্যাক দেখা যায় না; ক্যাটালগ দেখে PHP/Laravel যুক্তিসঙ্গত অনুমান, তবে নিশ্চিত নয়। ফন্ট (Manrope WOFF2), CSS এবং হাতে লেখা স্ক্রিপ্ট (<code>v96chat.js</code>, <code>compare.js</code>, <code>signals.js</code>) vibe96.com ডোমেইন থেকেই আসে, আর অ্যানালিটিক্স যায় <code>POST /e/h</code> বিকনে। আমি রেসপন্স হেডার দেখিনি, তাই CDN ব্যবহার হয় কিনা জানা নেই।</p>
+  <p>বাইরে থেকে দেখা সবচেয়ে স্পষ্ট প্রযুক্তিগত দুর্বলতা হলো URL ব্যবস্থাপনা। <code>/project/furnivo</code> খুললে 404 আসে, অথচ <code>/project/furnivo-2</code> কাজ করে, আর সাইটম্যাপে অনেক প্রজেক্টে একই ধরন দেখা যায় (<code>-2</code>, <code>-3</code>, <code>-5</code> যুক্ত)। পুরোনো লিংক ভেঙে যায়, আর সার্চ ইঞ্জিন ডুপ্লিকেট বা মৃত URL দেখে।</p>
+</section>
+
+<!-- ============ ৩ ============ -->
+<section id="surfaces">
+  <h2><span class="num">০৩</span>প্রতিটি অংশের অডিট</h2>
+  <p class="lede">একজন সিনিয়র রিভিউয়ারের চোখে, অংশ ধরে ধরে। প্রতিটির জন্য: আসলে কী আছে, কোনটা ভালো, আর কী নেই।</p>
+
+  <h3>৩.১ সফটওয়্যার কেনা: মার্কেটপ্লেস নিজেই</h3>
+  <p><strong>যা আছে।</strong> যুক্তিসঙ্গত ফিল্টারসহ ক্যাটালগ (ক্যাটাগরি, কোন টুল দিয়ে বানানো, দামের সীমা, টেক), পেজিনেশন (প্রতি পেজে ২৪টি), ৩টি পর্যন্ত তুলনা করার পেজ, আর সত্যিই সমৃদ্ধ প্রোডাক্ট-ডিটেইল পেজ: সাবসিস্টেম অনুযায়ী ফিচার, টেকনিক্যাল স্পেসিফিকেশন, সার্ভারের চাহিদা, ডিপ্লয়মেন্ট নোট, রিলিজের ইতিহাস, ছয় দিকের অডিট সাব-স্কোর, বিল্ডারের সাইডবার, একই রকম প্রোডাক্টের তালিকা। সার্চ বক্সে "Real estate CRM" বা "Website with CMS" ধরনের উদাহরণ দিয়ে ক্রেতাকে পথ দেখানোর চেষ্টা আছে।</p>
+  <p><strong>যা ভালো।</strong> প্রোডাক্ট-ডিটেইল পেজ সাইটের সবচেয়ে শক্তিশালী কনটেন্ট। ছয় দিকের অডিট (সিক্রেটস, ডিপেন্ডেন্সি, অনুমতি নিয়ন্ত্রণ, ডেটাবেস অ্যাক্সেসের নিয়ম, কোডের গঠন, বিল্ড আবার তৈরি করা যায় কিনা) একটি পরিষ্কার ও যুক্তিসঙ্গত মানদণ্ড। প্রতিটি লিস্টিংয়ে সাব-স্কোর ও রিভিউয়ারের নোট দেখানো CodeCanyon বা Gumroad-এর চেয়ে ভালো।</p>
+  <p><strong>যা নেই।</strong></p>
+  <ul>
+    <li><strong>যতটুকু দেখেছি, শুধু কিওয়ার্ড সার্চ।</strong> অর্থ বুঝে খোঁজা নেই, "আমার সমস্যার বর্ণনা থেকে প্রজেক্ট মিলিয়ে দাও" নেই, অটোকমপ্লিট নেই, সার্চ সেভ করা নেই, কোনো ক্যাটাগরিতে নতুন লিস্টিং এলে অ্যালার্ট নেই।</li>
+    <li><strong>কোড প্রিভিউ নেই।</strong> ক্রেতা ডেমো ও স্ক্রিনশট দেখতে পারেন, কিন্তু একটা ফাইলও পড়তে পারেন না। কোডের মার্কেটপ্লেসে এটাই আস্থার সবচেয়ে বড় ফাঁক।</li>
+    <li><strong>কেনার আগে চালিয়ে দেখার স্যান্ডবক্স নেই।</strong> ডেমো একটি শেয়ার করা পাবলিক URL। ক্রেতা ছুঁয়ে দেখতে, ভাঙতে বা নিজের কপি (fork) বানাতে পারেন এমন কিছু নেই।</li>
+    <li><strong>ক্রেতার রিভিউ নেই।</strong> প্রশংসাপত্রগুলো বিল্ডারদের। কেনার পর ক্রেতারা কিছুই রেট করেন না।</li>
+    <li><strong>SBOM নেই, CVE রিফ্রেশ নেই।</strong> ৯৪/১০০ স্কোরটি অডিটের দিনের (যেমন ৬ অক্টোবর ২০২৬)। নিরাপত্তা দুর্বলতার তালিকার সঙ্গে মিলিয়ে কিছুই আপডেট হয় না। কোনো লিস্টিংয়ে CVE-যুক্ত Laravel ভার্সন থাকলেও ব্যাজ থেকে যায়।</li>
+    <li><strong>তুলনা মাত্র ৩টির মধ্যে</strong>, শুধু ডেটাশিটের ধরনে। পারফরম্যান্স বেঞ্চমার্ক, ডিপেন্ডেন্সির সংখ্যা, টেস্ট কভারেজ বা কোডবেসের আকার কীভাবে বদলাচ্ছে তা নেই।</li>
+    <li><strong>ফ্রিমিয়াম বা ওপেন-কোর নেই।</strong> শুধু এককালীন লাইসেন্স; ট্রায়াল নেই, কমিউনিটি এডিশন নেই, টাকা ফেরত নেই; সব বিক্রি চূড়ান্ত।</li>
+    <li><strong>URL দুর্বলতা।</strong> <code>/project/furnivo</code> খুললে 404, অথচ <code>/project/furnivo-2</code> কাজ করে। নতুন করে জমা দেওয়া প্রজেক্টের নামের শেষে <code>-2</code>, <code>-3</code>, <code>-5</code> যুক্ত হয়। এতে SEO-র ক্ষতি আর ব্যবহারকারীর বিভ্রান্তি দুটোই হয়।</li>
+  </ul>
+
+  <h3>৩.২ Get it Live: ম্যানেজড ডিপ্লয়মেন্ট</h3>
+  <p><strong>যা আছে।</strong> পরিষ্কার পাঁচ ধাপের প্রক্রিয়া: প্রজেক্ট বাছাই (অথবা আপলোড বা Git সংযোগ), সার্ভার বাছাই, পাবলিশিং বাছাই, ঐচ্ছিক বিশেষজ্ঞ ঘণ্টা, পেমেন্ট। "সব তথ্য পাওয়ার" পর ৪৮ কর্মঘণ্টার SLA। হোস্টিং হলো KVM ভার্চুয়ালাইজড প্রাইভেট VPS, Intel Xeon বা AMD EPYC প্রসেসর, ISO 27001 ও SOC 2 Type II সনদপ্রাপ্ত ডেটা সেন্টারে; Linux অথবা পূর্ণ লাইসেন্সড Windows Server, 1 Gbps ডেডিকেটেড IP, হার্ডওয়্যার RAID 10। ১২ মাসের মেয়াদে মাসে $৮.৫৮ থেকে $১৬১। প্রতিদিন সার্ভারের বাইরে ব্যাকআপ, ৭ দিন রাখা হয়। মোবাইল পাবলিশিং প্রতি সাবমিশন পাসে $৩৯৯। ৯৯.৯% আপটাইম গ্যারান্টি ডেটা সেন্টার অপারেটরের, Vibe96-এর নিজের নয়।</p>
+  <p><strong>যা ভালো।</strong> পুরো বর্ণনা (প্রাইভেট VPS, নির্দিষ্ট নামের ইঞ্জিনিয়ার, জরুরি সমস্যায় ২ ঘণ্টায় সাড়া, নিরাপত্তা ঘটনায় ৭২ ঘণ্টার মধ্যে জানানো, হোস্টিং শেষ হওয়ার পর ৩ মাস পর্যন্ত শেষ ব্যাকআপ ডাউনলোড করা যায়) ভালোভাবে লেখা; মনে হয় যিনি লিখেছেন তিনি আসল প্রোডাকশন সার্ভার চালিয়েছেন। দামও ঠিক সীমার মধ্যে, Hetzner Cloud আর ম্যানেজড সাপোর্ট মিলিয়ে যা খরচ হয় তার সঙ্গে প্রতিযোগিতামূলক।</p>
+  <p><strong>যা নেই।</strong></p>
+  <ul>
+    <li><strong>শুধু VPS।</strong> সার্ভারলেস নেই, এজ নেই, কন্টেইনার PaaS নেই, ব্যবহার না থাকলে খরচ শূন্যে নামার (scale-to-zero) ব্যবস্থা নেই। AI দিয়ে বানানো Next.js অ্যাপের ক্ষেত্রে এটা ক্রেতার নিজে সরাসরি Vercel-এ ডিপ্লয় করার চেয়েও খারাপ।</li>
+    <li><strong>৭ দিনের ব্যাকআপ, PITR নেই।</strong> Neon, Supabase, RDS সবাই অতীতের নির্দিষ্ট মুহূর্তে ফিরে যাওয়ার (point-in-time recovery) সুবিধা দেয়। দৈনিক স্ন্যাপশট আর ৭ দিন রাখা আধুনিক মানের নিচে।</li>
+    <li><strong>মানুষনির্ভর SLA।</strong> ৪৮ কর্মঘণ্টা মানে মানুষ হাতে কাজ করছে। কোনো অটোমেশন নেই, সময় পার হলে ক্রেডিট নেই, পাবলিক স্ট্যাটাস পেজ নেই, ঘটনার আর্কাইভ নেই।</li>
+    <li><strong>প্রতিটি রিলিজের প্রিভিউ ডিপ্লয়মেন্ট নেই।</strong> বিল্ডারের নতুন ভার্সন এলে প্রিভিউ URL নেই, পরিবর্তনের তুলনা (diff) নেই, অল্প অল্প করে চালু করার (canary) ব্যবস্থা নেই।</li>
+    <li><strong>ছোট ক্রেতার জন্য মাসিক খরচ বেশি।</strong> $২৯ থেকে $৭৯-এর অ্যাপ কিনে বছরে $২৪০-এর বেশি হোস্টিংয়ে খরচ করলে মূল্যের হিসাব উল্টে যায়।</li>
+    <li><strong>আটকে রাখার প্রবণতা (lock-in)।</strong> ক্রেতা ফাইল ডাউনলোড করতে বা পুরো কপি চাইতে পারেন, কিন্তু অন্য হোস্টে এক ক্লিকে সরে যাওয়ার নথিভুক্ত পথ নেই।</li>
+  </ul>
+
+  <h3>৩.৩ বিশেষজ্ঞ ভাড়া: শ্রমের স্তর</h3>
+  <p><strong>যা আছে।</strong> দুটি পথ। <code>/experts</code> পেজে ঘণ্টাভিত্তিক প্যাক বিক্রি হয় (কনসালট্যান্ট $২০০ প্রতি ঘণ্টা, সিনিয়র ডেভ $১০০, ডেভ $৮০, DevOps $৭৫, ডিজাইনার $৭০, মোবাইল পাবলিশার $৭০; ন্যূনতম ২ থেকে ৫ ঘণ্টা; প্যাক $১৫০ থেকে $১,৯৫০)। <code>/developers</code> পেজে নির্দিষ্ট দামের কাজের ব্যবস্থা: বিনামূল্যে প্রাথমিক কল, Vibe96 এক বা দুজন যাচাই করা বিল্ডারের সঙ্গে পরিচয় করিয়ে দেয় যাদের নিজের লিস্টিং অডিটে ৮৫+ পেয়েছে, তারা নির্দিষ্ট দাম বলেন, ক্রেতা Vibe96-কে টাকা দেন এবং ডেলিভারি গ্রহণ না করা পর্যন্ত টাকা আটকে থাকে, তারপর ডেলিভারি আবার অডিট হয়।</p>
+  <p><strong>যা ভালো।</strong> <code>/developers</code>-এর নির্দিষ্ট দামের পথ অনেক ফ্রিল্যান্স প্ল্যাটফর্মের চেয়ে ভালো: সত্যিকারের এসক্রো আছে, আর হস্তান্তর লিস্টিংয়ের মতো একই অডিটের মধ্য দিয়ে যায়। এটা সত্যিই ভালো নিয়ন্ত্রণ।</p>
+  <p><strong>যা নেই।</strong></p>
+  <ul>
+    <li><strong>বিশেষজ্ঞদের প্রোফাইল নেই।</strong> আগে টাকা দেবেন, তারপর "আমরা মিলিয়ে দেব।" এটা ২০১০ সালের ধরন। পোর্টফোলিও নেই, যাচাই করা আগের কাজ নেই, সাড়া দেওয়ার সময়ের পরিসংখ্যান নেই, রেটিং নেই, টাইম জোন নেই।</li>
+    <li><strong>সময়সূচি দেখার ব্যবস্থা নেই।</strong> ক্যালেন্ডার নেই, বুক করার মতো স্লট নেই।</li>
+    <li><strong>ঘণ্টাভিত্তিক পথে এসক্রো নেই</strong>, শুধু নির্দিষ্ট দামের পথে আছে।</li>
+    <li><strong>Nova নিজে থেকে মানুষের কাছে পাঠায় না।</strong> Vibe Studio জটিল কিছুর মুখোমুখি হলে উচিত একটা ব্রিফ লিখে, ঘণ্টা অনুমান করে, কয়েকজন বিশেষজ্ঞের কাছে পাঠানো। আজ এমন কোনো সংযোগ নেই।</li>
+  </ul>
+
+  <h3>৩.৪ বিক্রি করে আয়: বিল্ডারের প্রক্রিয়া</h3>
+  <p><strong>যা আছে।</strong> সাত ধাপের জমা দেওয়ার প্রক্রিয়া (কোড ও ডেমো → স্বয়ংক্রিয় অডিট → ৭৫/১০০-এর নিচে হলে ঠিক করা → লিস্টিং → মিডিয়া → বিক্রেতা চুক্তি → মানুষের রিভিউ)। ৬৫/৩৫ ভাগ। লিস্টিং ফি নেই। $১০ স্বাগত বোনাস, প্রথম লাইভে $৫০। প্রতি মাসের ৫ তারিখে পেমেন্ট, ন্যূনতম $২০০, Wise, Payoneer বা ব্যাংক। ছোট প্যাচ রিলিজ হালকা অ্যাডমিন অনুমোদনে যায়; নতুন ভার্সন আবার পুরো অডিটে যায়। বিল্ডারদের ৩০ দিন ক্রেতাকে সাপোর্ট দিতে হয় এবং ১২ মাস আপডেট দিতে হয়।</p>
+  <p><strong>যা ভালো।</strong> অডিটের মানদণ্ডই মেরুদণ্ড, আর তা পরিষ্কার করে লেখা। বাণিজ্যিক শর্ত CodeCanyon-এর রিপোর্ট করা ৫০% কাটের তুলনায় প্রতিযোগিতামূলক।</p>
+  <p><strong>যা নেই।</strong></p>
+  <ul>
+    <li><strong>অডিট একবারই হয়।</strong> ডিপেন্ডেন্সি পুরোনো হলে বা নতুন CVE এলে আবার স্কোর হয় না। ব্যাজ দেওয়ার পরদিন থেকেই তা বাস্তবতা থেকে সরে যেতে থাকে।</li>
+    <li><strong>মাসে $২০০ ন্যূনতম পেমেন্ট ছোট বিল্ডারের জন্য ধীর।</strong> Stripe Connect Express সমর্থিত দেশে কোনো ন্যূনতম ছাড়াই সাপ্তাহিক পেমেন্ট দেওয়া যায়।</li>
+    <li><strong>বিল্ডারের অ্যানালিটিক্স নেই।</strong> শুধু বিক্রির তালিকা। কতজন দেখল, তুলনা করল, ব্যাগে যোগ করল, টাকা দিল, এই ফানেল নেই; লিস্টিংয়ের লেখার A/B টেস্ট নেই; দাম বদলালে বিক্রিতে কী প্রভাব পড়ে তার সংকেত নেই।</li>
+    <li><strong>মডিউল বা প্লাগইনের উপ-মার্কেটপ্লেস নেই।</strong> একজন বিল্ডার পুনর্ব্যবহারযোগ্য Stripe অ্যাডাপ্টার বা অডিট পাস করা লগইন কিট বিক্রি করতে পারেন না, যা অন্য বিল্ডাররা নিজেদের টেমপ্লেটে বসাবেন।</li>
+    <li><strong>GitHub থেকে স্বয়ংক্রিয় রি-অডিট নেই।</strong> প্রতিটি push-এ অডিট আবার চলা এবং লাইভ স্কোর আপডেট হওয়া উচিত।</li>
+    <li><strong>LLM দিয়ে বানানো চেঞ্জলগ নেই।</strong> রিলিজ নোট বিল্ডাররা হাতে লেখেন।</li>
+  </ul>
+
+  <h3>৩.৫ Vibe Studio: AI কাস্টমাইজেশনের স্তর</h3>
+  <p><strong>যা আছে (বেটা)।</strong> Nova সমন্বয়কারী; Claude কোড বানায়, ChatGPT ছবি বানায়। প্রক্রিয়া: আলোচনা → পরিকল্পনা (প্রতিটি কাজের অনুমিত খরচসহ চেকলিস্ট) → ডিজাইন (আসল পেজে প্রিভিউ, বিভিন্ন ডিভাইসে) → ডেভেলপ। নতুন ভার্সন চেক পার না হওয়া পর্যন্ত লাইভ সাইট চলতে থাকে; ৭ দিনের মধ্যে আগের অবস্থায় ফেরা (rollback) যায়। যত ব্যবহার তত পেমেন্ট, $৫ ফ্রি ক্রেডিট, $১০ টপ-আপ। Kimi ও DeepSeek পরিকল্পিত সংযোজন হিসেবে তালিকাভুক্ত।</p>
+  <p><strong>যা ভালো।</strong> কোড লেখার আগে ডিজাইন প্রিভিউ দেখানো শক্তিশালী UX ভাবনা। প্রতিটি কাজের আগে অনুমিত খরচ আর পরে আসল খরচ দেখানো বেশিরভাগ IDE-ভিত্তিক এজেন্টের চেয়ে ভালো।</p>
+  <p><strong>যা নেই।</strong></p>
+  <ul>
+    <li><strong>কাজ টিকে থাকবে কিনা তার কোনো ঘোষণা নেই।</strong> ট্যাব বন্ধ, সার্ভার রিস্টার্ট বা কয়েক ঘণ্টার কাজ টিকে থাকবে কিনা, পেজে কিছুই বলা নেই। বেটার ভেতরে হয়তো আছে, কিন্তু প্রতিশ্রুতি দেওয়া নেই।</li>
+    <li><strong>AI প্রোভাইডার দুটি স্থায়ীভাবে বাঁধা।</strong> কোনো মডেল রাউটার নেই, AI Gateway নেই, নিজের API key আনার (BYOK) সুবিধা নেই, কাজপ্রতি বাজেট সীমা নেই, একটা মডেল ব্যর্থ হলে অন্যটায় যাওয়ার (fallback) স্বচ্ছ ব্যবস্থা নেই।</li>
+    <li><strong>মানুষের কাছে হস্তান্তর নেই।</strong> Nova থেকে পূর্ণ ব্রিফ ও অনুমানসহ বিশেষজ্ঞের টিকিটে মসৃণভাবে যাওয়ার পথ নেই।</li>
+    <li><strong>মূল্যায়নের (eval) ব্যবস্থা নেই।</strong> এই সপ্তাহে Nova আগের চেয়ে ভালো হলো কিনা Vibe96 কীভাবে জানবে? প্রকাশিত কোনো eval সেট নেই।</li>
+  </ul>
+
+  <h3>৩.৬ আস্থা ও নিরাপত্তা</h3>
+  <p>হোস্টিং নিরাপত্তার পেজটা বেশ বিস্তারিত: আলাদা KVM, স্তরে স্তরে ফায়ারওয়াল, SSL স্বয়ংক্রিয় নবায়ন, পেছনে ২৪/৭ ডেটা সেন্টার অপারেশন আর সামনে সোম থেকে শুক্র সকাল ৯টা থেকে সন্ধ্যা ৬টা (দুবাই সময়) Vibe96-এর টিম, নিরাপত্তা ঘটনা ৭২ ঘণ্টার মধ্যে জানানোর প্রতিশ্রুতি, GDPR-এর নীতি মেনে ডেটা ব্যবস্থাপনা, অনুরোধে DPA। ফাঁকটা হলো <strong>বাস্তবে ঠিকঠাক চলার প্রকাশ্য প্রমাণ</strong>: স্ট্যাটাস পেজ নেই, পোস্ট-মর্টেম নেই, SLA শতাংশের রেকর্ড নেই, স্বচ্ছ ঘটনার লগ নেই, Vibe96-এর নিজের SOC 2 নেই (যে SOC 2-এর কথা বলা হয় তা ডেটা সেন্টারের)। আর্থিক সেবা বা স্বাস্থ্যখাতের ক্রেতার কাছে এই ফাঁকটাই চুক্তি হওয়া না হওয়ার কারণ।</p>
+
+  <h3>৩.৭ কনটেন্ট, SEO ও ব্র্যান্ড</h3>
+  <p>সাইটম্যাপে একটি <code>/blog</code> আছে ১৬টি লেখাসহ (সবই "Marketing Team"-এর লেখা), আর সাতটি গাইড: Lovable অ্যাপ ডিপ্লয়, Bolt অ্যাপ ডিপ্লয়, অ্যাপ স্টোরে পাবলিশ, vibe-coded অ্যাপ ঠিক করা, নিরাপত্তা চেকলিস্ট, কেনা, বিক্রি। ব্লগ নতুন হলেও সঠিক কৌশলে চলছে। হোমপেজ একটি ছোট, ভালোভাবে তৈরি মার্কেটিং সাইট, শান্ত ও আস্থা জাগানো সুরে লেখা। পুরো সাইট শুধু ইংরেজিতে; দাম শুধু USD-তে; VAT শুধু আমিরাতের জন্য।</p>
+</section>
+
+<!-- ============ ৪ ============ -->
+<section id="market">
+  <h2><span class="num">০৪</span>প্রতিযোগিতার চিত্র</h2>
+  <p class="lede">ভিড়ে ভরা, তিন ধরনের বাজারে Vibe96 কোথায় দাঁড়িয়ে, আর পুরোনো ও নতুন প্রতিযোগীরা আসলে কী করে।</p>
+
+  <h3>যে তিন ধরনের প্রতিযোগীর সঙ্গে লড়তে হবে</h3>
+  <ol>
+    <li><strong>প্রচলিত কোড মার্কেটপ্লেস।</strong> CodeCanyon (Envato, যাকে ২০২৪ সালে Shutterstock কিনেছে), Codester, কোডের জন্য Gumroad, স্বাধীন স্ক্রিপ্ট শপ। একটি ডেভেলপার ব্লগের রিপোর্ট অনুযায়ী Envato ২০২৬ সালের জুলাই থেকে তাদের কাট বাড়িয়ে <strong>৫০%</strong> করেছে এবং এক্সক্লুসিভিটির শর্ত তুলে দিয়েছে; এর ওপর নির্ভর করার আগে Envato-র লেখক শর্তাবলি দেখে নিন। একটি বহুল শেয়ার হওয়া প্রবন্ধে দাবি করা হয়েছে ২০১৮ সাল থেকে CodeCanyon-এর বিক্রি অনেক কমেছে। ক্যাটালগ মূলত JS, PHP, ASP.NET ও Java। লাইভ অডিট নেই, ম্যানেজড হোস্টিং নেই, AI কাস্টমাইজেশন নেই।</li>
+    <li><strong>চালু ব্যবসা বিক্রির মার্কেটপ্লেস।</strong> Flippa (প্রচুর লিস্টিং, ৫ থেকে ১০% সাফল্য ফি, এসক্রো আছে), Acquire.com (আগে MicroAcquire; মূলত বছরে প্রায় আড়াই লাখ ডলারের বেশি ARR-এর SaaS, চূড়ান্ত দাম প্রায়ই লিস্টিং দামের চেয়ে ১০ থেকে ২০% কম), Empire Flippers (বাছাই করা লিস্টিং), ExitBid (৫ দিনের নিলাম, $১৯৯ নির্দিষ্ট লিস্টিং ফি, ০% কমিশন, প্রায় ৬৬% আবেদন বাতিল)। এরা চালু ব্যবসা বিক্রি করে, সোর্স কোড নয়।</li>
+    <li><strong>নতুন vibe-coded অ্যাপ মার্কেটপ্লেস।</strong> Vibe96-এর সরাসরি প্রতিযোগী: <strong>Vibe Coded / vibecodedshop</strong>, <strong>VibeCoding.Market</strong> (২০২৫ সালের জুনে চালু, "পরিত্যক্ত ও ব্যর্থ প্রজেক্টের" জন্য), <strong>Unloved</strong>। সবাই শুরুর পর্যায়ে; কারো Vibe96-এর মতো গভীর অডিট বা দুবাইভিত্তিক পরিচালনা নেই।</li>
+  </ol>
+
+  <h3>আর যে AI-বিল্ডার প্ল্যাটফর্মগুলো এই বাজার দখল করে নিতে পারে</h3>
+  <p>আসল কৌশলগত ঝুঁকি CodeCanyon নয়, কারণ সেটা পড়তির দিকে। আসল ঝুঁকি হলো, যে AI-বিল্ডার প্ল্যাটফর্মে এই অ্যাপগুলো বানানো হয়, তারা নিজেরাই বিক্রির ব্যবস্থা যোগ করে ফেলবে:</p>
+  <ul>
+    <li><strong>Lovable।</strong> ২০২৫ সালের ডিসেম্বরে $৬.৬ বিলিয়ন মূল্যায়নে $৩৩০ মিলিয়ন তুলেছে। React, Supabase, Stripe-সহ কোড এক্সপোর্ট করে। তারা মার্কেটপ্লেস যোগ করলে পুরো ফানেল তাদের হাতে।</li>
+    <li><strong>Base44।</strong> ২০২৫ সালের জুনে Wix কিনেছে। এখন কোড এক্সপোর্ট সীমিত; টেমপ্লেট বিনিময় তাদের স্বাভাবিক পরের পদক্ষেপ।</li>
+    <li><strong>Replit।</strong> Agent ও Templates আগে থেকেই আছে। পূর্ণ git অ্যাক্সেস, ৫০টির বেশি প্রোগ্রামিং ভাষা। "টেমপ্লেট বিক্রি করুন" বোতাম তাদের জন্য এক কোয়ার্টারের কাজ।</li>
+    <li><strong>v0 (Vercel), Bolt (StackBlitz), Claude Code।</strong> প্রত্যেকের নিজস্ব বিতরণ আছে (Vercel Deploy, StackBlitz হোস্টিং, GitHub ইন্টিগ্রেশন), যা বাড়তি টাকা না নিয়েই Get it Live-এর সঙ্গে সরাসরি প্রতিযোগিতা করে।</li>
+  </ul>
+
+  <h3>আর অডিট-টুলের বিশেষজ্ঞরা</h3>
+  <p><strong>VibeChex</strong> AI-অ্যাপ অডিটের একটি পদ্ধতি প্রকাশ করেছে যা সরাসরি Vibe96-এর মানদণ্ডের সঙ্গে প্রতিযোগিতা করে। <strong>Mend AIBoM</strong>, <strong>sbomqs</strong>, <strong>sbomaudit</strong> এবং <strong>AI Code Validator</strong> আলাদা টুল বা SaaS হিসেবে SBOM স্কোরিং ও AI-কোডের CVE স্ক্যানিং দেয়। কারো সঙ্গে মার্কেটপ্লেস নেই, এটাই Vibe96-এর সুবিধা; তবে যেকোনোটা একটা চালু করতে পারে।</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption>২০২৬ সালের অক্টোবরে Vibe96-এর তুলনা</caption>
+      <thead>
+        <tr><th>মাপকাঠি</th><th>Vibe96</th><th>CodeCanyon</th><th>Flippa / Acquire</th><th>Lovable / Replit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>কী বিক্রি হয়</td><td>অডিট করা AI-নির্মিত অ্যাপের সোর্স কোড</td><td>সোর্স কোড, থিম, স্ক্রিপ্ট</td><td>চালু ব্যবসা</td><td>হোস্টেড বিল্ডার ও কোড এক্সপোর্ট</td></tr>
+        <tr><td>অডিট</td><td><span class="pill good">আছে</span> ছয় দিক, ৭৫/১০০ সীমা</td><td><span class="pill bad">নেই</span></td><td><span class="pill bad">কোড নয়</span></td><td><span class="pill bad">নেই</span></td></tr>
+        <tr><td>প্ল্যাটফর্মের কাট</td><td class="num-col">৩৫%</td><td class="num-col">৫০% (রিপোর্ট, ২০২৬)</td><td class="num-col">৫ থেকে ১০% ও ফি</td><td>প্রযোজ্য নয় (হোস্টিং থেকে আয়)</td></tr>
+        <tr><td>ক্রেতার রিফান্ড</td><td><span class="pill bad">নেই</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill warn">এসক্রো</span></td><td>প্রযোজ্য নয়</td></tr>
+        <tr><td>ম্যানেজড ডিপ্লয়</td><td><span class="pill good">শুধু VPS</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill good">নিজস্ব</span></td></tr>
+        <tr><td>প্ল্যাটফর্মের ভেতরে AI দিয়ে পরিবর্তন</td><td><span class="pill warn">বেটা (Nova)</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill good">নিজস্ব</span></td></tr>
+        <tr><td>ভাড়ার জন্য বিশেষজ্ঞ</td><td><span class="pill good">ঘণ্টাভিত্তিক ও নির্দিষ্ট দাম</span></td><td><span class="pill bad">নেই</span></td><td><span class="pill warn">ব্রোকার</span></td><td><span class="pill bad">নেই</span></td></tr>
+        <tr><td>আকার (লিস্টিং)</td><td class="num-col">৬৮</td><td>কয়েক দশ হাজার</td><td>কয়েক হাজার</td><td>প্রযোজ্য নয়</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="callout">
+    <strong>আসল সুযোগটা কোথায়।</strong> "ডেমোসহ সস্তা কোড" নয়, ওটা CodeCanyon আগে থেকেই করে। "AI বিল্ডার" নয়, ওটা Lovable, Replit, v0, Bolt করে। সুযোগটা হলো এমন AI-নির্মিত সফটওয়্যার যা লাইভ, যাচাইযোগ্য এবং ধারাবাহিকভাবে অডিট হয়; যা আপনি চালিয়ে দেখতে, কিনতে, নিজের কপি বানাতে, হোস্ট করতে এবং বাড়িয়ে চলতে পারেন; যার ওপর একটি টেকসই এজেন্ট কাজ করছে, আর এক ক্লিক দূরে একজন মানুষ আছেন। Vibe96 এই সুযোগের দিকে ইঙ্গিত করছে। এখনো দখল করেনি।
+  </p>
+</section>
+
+<!-- ============ ৫ ============ -->
+<section id="gaps">
+  <h2><span class="num">০৫</span>ঘাটতির পূর্ণ তালিকা</h2>
+  <p class="lede">ধরন অনুযায়ী সাজানো; প্রতিটির সঙ্গে কেন এটা গুরুত্বপূর্ণ এবং কতটা জরুরি। উত্তরসূরিকে এগুলোরই সমাধান করতে হবে।</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption>প্রোডাক্টের ঘাটতি (ক্রেতার দিক)</caption>
+      <thead><tr><th>ঘাটতি</th><th>কেন গুরুত্বপূর্ণ</th><th>গুরুত্ব</th></tr></thead>
+      <tbody>
+        <tr><td>সোর্স কোড প্রিভিউ নেই</td><td>সিনিয়র ডেভেলপার ক্রেতারা যাচাই করতে পারেন না; সবচেয়ে লাভজনক ক্রেতারাই সরে যান।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>কেনার আগে চালানোর স্যান্ডবক্স নেই</td><td>ডেমো URL শেয়ার করা এবং শুধু দেখার জন্য; কোড কেনায় ঝুঁকি কমানোর ব্যবস্থা নেই।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>ক্রেতার রিভিউ বা প্রশ্নোত্তর নেই</td><td>শুধু বিল্ডারের প্রশংসাপত্র; ৬৮টি অ্যাপে ৮২০ ক্রেতা, সামাজিক প্রমাণ দুর্বল।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>রিফান্ড নেই, ভেবে দেখার সময় নেই</td><td>"সব বিক্রি চূড়ান্ত" নিয়ম $১৫০-এর বেশি দামের বিক্রি আটকে দেয়।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>শুধু কিওয়ার্ড সার্চ</td><td>"এই সমস্যার বর্ণনা থেকে প্রজেক্ট মিলিয়ে দাও" বলা যায় না।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>তুলনা ৩টিতে সীমিত, শুধু ডেটাশিট</td><td>পারফরম্যান্স, ডিপেন্ডেন্সি বা কভারেজের তুলনা নেই।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>রিলিজের পরিবর্তন দেখার ব্যবস্থা নেই</td><td>১.০ থেকে ১.২-এ কী বদলাল বোঝা কঠিন।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>শুধু ইংরেজি, USD ও আমিরাতের VAT</td><td>ইইউ, যুক্তরাজ্য, ভারত, অস্ট্রেলিয়া, সিঙ্গাপুরের কর ব্যবস্থা আর অ-ইংরেজিভাষী ক্রেতারা বাদ পড়েন।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>প্রোডাক্টের ঘাটতি (বিল্ডারের দিক)</caption>
+      <thead><tr><th>ঘাটতি</th><th>কেন গুরুত্বপূর্ণ</th><th>গুরুত্ব</th></tr></thead>
+      <tbody>
+        <tr><td>একবারের অডিট, বারবার স্কোর হয় না</td><td>নতুন CVE জেনে হালনাগাদ থাকাটাই ক্রেতা আসলে টাকা দিয়ে কেনেন।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>SBOM বা SPDX আউটপুট নেই</td><td>বড় প্রতিষ্ঠানের ক্রেতারা লাইসেন্স যাচাই করতে পারেন না।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>বিল্ডারের অ্যানালিটিক্স বা A/B নেই</td><td>ফানেল নেই, দামের প্রভাব জানা নেই, লিস্টিংয়ের লেখা পরীক্ষা করা যায় না।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>মাসে $২০০ ন্যূনতম পেমেন্ট, মাসের ৫ তারিখে</td><td>ছোট বিল্ডারদের শুরুতে টাকা আটকে থাকে।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>GitHub থেকে রি-অডিট নেই</td><td>অডিট হাতে জমা দিয়ে হয়; সময়ের সঙ্গে পুরোনো হয়ে যায়।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>মডিউল বা প্লাগইনের উপ-মার্কেটপ্লেস নেই</td><td>বিল্ডাররা একে অপরের কাজের ওপর গড়তে পারেন না।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>আস্থার ঘাটতি</caption>
+      <thead><tr><th>ঘাটতি</th><th>কেন গুরুত্বপূর্ণ</th><th>গুরুত্ব</th></tr></thead>
+      <tbody>
+        <tr><td>পাবলিক স্ট্যাটাস পেজ বা SLA শতাংশ নেই</td><td>"ডেটা সেন্টারের ৯৯.৯%" Vibe96-এর নিজের প্রতিশ্রুতি নয়।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>ঘটনা বা পোস্ট-মর্টেমের আর্কাইভ নেই</td><td>পরিচালনার পরিপক্বতার কোনো প্রমাণ নেই।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>SOC 2 ধার করা, নিজের নয়</td><td>নিয়ন্ত্রিত খাতের ক্রেতারা আটকে যান।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>শুধু DIFC আইন</td><td>ইইউ, যুক্তরাজ্য বা যুক্তরাষ্ট্রের বড় প্রতিষ্ঠানের জন্য স্বস্তিদায়ক নয়।</td><td><span class="pill flat">মাঝারি</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>প্রযুক্তিগত আর্কিটেকচারের ঘাটতি</caption>
+      <thead><tr><th>ঘাটতি</th><th>কেন গুরুত্বপূর্ণ</th><th>গুরুত্ব</th></tr></thead>
+      <tbody>
+        <tr><td>শুধু VPS হোস্টিং</td><td>Next.js ও সার্ভারলেস অ্যাপের ক্রেতারা সরাসরি Vercel-এ চলে যান।</td><td><span class="pill bad">সংকটজনক</span></td></tr>
+        <tr><td>প্রতিটি নেভিগেশনে পুরো পেজ রিলোড</td><td>ক্যাটালগ ঘুরে দেখা ধীর; আংশিক রেন্ডারিং বা ধাপে ধাপে লোড হওয়া অংশ নেই।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>দৈনিক ব্যাকআপ, ৭ দিন রাখা</td><td>আধুনিক PITR প্রত্যাশার নিচে।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>পাবলিক API নেই, webhook নেই</td><td>অন্য সিস্টেমের সঙ্গে যুক্ত হওয়ার পথ নেই; CLI নেই, MCP সার্ভার নেই।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>URL-এ নামের সংঘর্ষ</td><td>পুরোনো লিংকে 404; ডুপ্লিকেট URL সার্চ র‍্যাংকিং কমায়।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>পুরো সাইট শুধু ইংরেজিতে</td><td>ক্যাটালগ যে আরবি, বাংলা, হিন্দি ও ইউরোপীয় ক্রেতাদের লক্ষ্য করে তারা বাদ পড়েন।</td><td><span class="pill flat">মাঝারি</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>ব্যবসায়িক মডেলের ঘাটতি</caption>
+      <thead><tr><th>ঘাটতি</th><th>কেন গুরুত্বপূর্ণ</th><th>গুরুত্ব</th></tr></thead>
+      <tbody>
+        <tr><td>সব স্তরে একই ৩৫% কাট</td><td>বেশি বিক্রি করা বিল্ডারদের পুরস্কৃত করার কমিশনের ধাপ নেই।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>এজেন্সি বা হোয়াইট-লেবেল প্ল্যান নেই</td><td>একটি এজেন্সি এক কোয়ার্টারে ১০টি ক্লায়েন্ট সাইট সহজে চালু করতে পারে না।</td><td><span class="pill warn">উচ্চ</span></td></tr>
+        <tr><td>বড় হোস্টিং প্যাকেজে কিস্তি নেই</td><td>১২ মাসের অগ্রিম পেমেন্ট কেনার পথে বড় বাধা।</td><td><span class="pill flat">মাঝারি</span></td></tr>
+        <tr><td>রেফারেল ব্যবস্থা নেই</td><td>মুখে মুখে ছড়িয়ে পড়ার কোনো ব্যবস্থা নেই।</td><td><span class="pill flat">মাঝারি</span></td></tr>
+        <tr><td>সাবস্ক্রিপশন বা আপডেট চালিয়ে যাওয়ার ব্যবস্থা নেই</td><td>১২ মাসে বিল্ডার ও ক্রেতার সম্পর্ক শেষ।</td><td><span class="pill flat">মাঝারি</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ৬ ============ -->
+<section id="thesis">
+  <h2><span class="num">০৬</span>উত্তরসূরির মূল ভাবনা</h2>
+
+  <blockquote>Vibe96 হলো একটি ক্যাটালগ, সঙ্গে ম্যানেজড সেবা। উত্তরসূরি হওয়া উচিত প্রোগ্রাম দিয়ে চালানো যায় এমন একটি কোড-বাণিজ্যের প্ল্যাটফর্ম। একটি প্রজেক্ট কেনা হবে একটি স্বয়ংক্রিয় সাপ্লাই চেইনের প্রথম API কল: তারপর কপি, সার্ভার তৈরি, ডিপ্লয়, পর্যবেক্ষণ, পরিবর্তন, আপগ্রেড।</blockquote>
+
+  <p>আজ যা মানুষ হাতে পূরণ করে, উত্তরসূরিতে তা হবে স্বয়ংক্রিয় মৌলিক উপাদান (primitive)। মার্কেটপ্লেসের ওয়েবসাইট সেই উপাদানগুলো ব্যবহারের কয়েকটি মাধ্যমের একটি মাত্র; অন্যগুলো হলো CLI, SDK, webhook এবং একটি MCP সার্ভার, যা AI কোডিং টুল (Cursor, Claude Code, Codex, v0) সরাসরি ব্যবহার করতে পারে। এই পরিবর্তনই প্রতিরক্ষা দেয়াল। যখন খোঁজা, লাইসেন্স ও ডিপ্লয়মেন্ট ক্রেতা যে টুলে কাজ করেন তার ভেতর থেকেই করা যায়, তখন মার্কেটপ্লেস হয়ে ওঠে AI-নির্মিত সফটওয়্যারের স্বাভাবিক বিক্রির পথ, আর প্রতিযোগীদের একসঙ্গে তিনটি জিনিস ধরতে হয়।</p>
+
+  <p>এর নিচে চারটি নীতি।</p>
+
+  <h3>নীতি ১: আস্থা একটি চলমান প্রবাহ, একবারের সিলমোহর নয়</h3>
+  <p>একবার দেওয়া আর চিরকাল দেখানো স্কোর হলো সিলমোহর। যে স্কোর প্রতি রাতে CVE তালিকার সঙ্গে আবার চলে, প্রতিটি push-এ SBOM নতুন করে বানায়, কোনো ডিপেন্ডেন্সি নিরাপদ সময় পার হলে ব্যাজ নামিয়ে দেয় এবং ঠিক করতে বিল্ডারকে ইমেইল করে, সেটা প্রবাহ। উত্তরসূরির কোয়ালিটি স্কোর হবে সময়ের সঙ্গে ওঠানামা করা একটি রেখা, যা ক্রেতা দেখতে পান। অডিট হবে জীবন্ত প্রোডাক্ট, শুধু একটা সনদ নয়।</p>
+
+  <h3>নীতি ২: ক্রেতাকে জিনিসটা ছুঁয়ে দেখতে দিতে হবে</h3>
+  <p>প্রতিটি লিস্টিংয়ে কেনার আগে চালানোর স্যান্ডবক্স: এক ক্লিকে, ২৪ ঘণ্টার জন্য, শুধু ওই প্রোডাক্টের আসল সোর্স আর নমুনা ডেটা দিয়ে একটি প্রাইভেট ডিপ্লয়মেন্ট। ক্রেতা ঘুরে দেখবেন, ভাঙবেন, সিদ্ধান্ত নেবেন। তারপর $২০০-এর নিচে ৭ দিনের রিফান্ড আর তার ওপরে ৩০ দিনের স্টোর ক্রেডিট রিফান্ড ঝুঁকির প্রশ্ন মিটিয়ে দেয়। পুরো পরিকল্পনায় বিক্রি বাড়ানোর সবচেয়ে বড় হাতিয়ার এটাই।</p>
+
+  <h3>নীতি ৩: ডেলিভারি হবে চলন্ত সিঁড়ি</h3>
+  <p>চেকআউটে বেছে নেওয়ার মতো তিন স্তরের ডিপ্লয়মেন্ট, ক্রেতার প্রয়োজন অনুযায়ী: পুরোপুরি স্বয়ংক্রিয় সার্ভারলেস/এজ (ব্যবহার না থাকলে খরচ শূন্য, ব্যবহার অনুযায়ী দাম), ম্যানেজড কন্টেইনার (যেসব অ্যাপে ডেটা সার্ভারে স্থায়ীভাবে থাকে), এবং প্রাইভেট VPS (যে ক্রেতা নিয়মকানুনের কারণে নিজস্ব হার্ডওয়্যার চান)। প্রতিটি স্তরে প্রতি রিলিজের প্রিভিউ ডিপ্লয়মেন্ট। ক্রেতা বড় হলে এক ক্লিকে এক স্তর থেকে অন্য স্তরে সরে যাওয়া।</p>
+
+  <h3>নীতি ৪: AI স্টুডিও একটি টেকসই কর্মক্ষেত্র, চ্যাট উইজেট নয়</h3>
+  <p>Nova নতুন করে বানানো হবে <strong>eve</strong> দিয়ে (Vercel-এর ফাইলসিস্টেমভিত্তিক এজেন্ট ফ্রেমওয়ার্ক), প্রতিটি ক্রেতার প্রজেক্টের জন্য একটি টেকসই এজেন্ট: আসল ফাইলসিস্টেম, টুল, স্কিল, সময়সূচি, মূল্যায়ন, আর git-এ রাখা অবস্থা, যা ট্যাব বন্ধ হলে, মডেল ব্যর্থ হলে বা কয়েক ঘণ্টার কাজেও টিকে থাকে। মডেল বাছাই হবে <strong>Vercel AI Gateway</strong> দিয়ে: কোডের জন্য Claude, ছবির জন্য GPT, লম্বা কনটেক্সটের জন্য Gemini, স্বচ্ছ বিকল্প ব্যবস্থা আর কাজপ্রতি খরচের সীমাসহ। বিশেষজ্ঞের কাছে হস্তান্তর হবে Nova-র একটি স্কিল, আলাদা কোনো ওয়েব ফর্ম নয়।</p>
+</section>
+
+<!-- ============ ৭ ============ -->
+<section id="goals">
+  <h2><span class="num">০৭</span>লক্ষ্য (SMART পদ্ধতিতে)</h2>
+  <p class="lede">বারো মাসের ছয়টি লক্ষ্য। SMART মানে নির্দিষ্ট, মাপা যায়, অর্জন করা যায়, প্রাসঙ্গিক এবং সময়বদ্ধ। প্রতিটি লক্ষ্য ১২ নম্বর অংশের একটি KPI-র সঙ্গে যুক্ত।</p>
+
+  <ol>
+    <li><strong>ক্যাটালগের গভীরতা।</strong> প্রথম ১২ মাসে ৫০০টি লাইভ অডিট করা লিস্টিং (Vibe96-এর বর্তমান ৬৮-এর তুলনায়), যার কমপক্ষে ৪০% সরাসরি সংযুক্ত GitHub রিপোজিটরি থেকে আসবে, যেখানে অডিট ধারাবাহিকভাবে চলে।</li>
+    <li><strong>ক্রেতার রূপান্তর (conversion)।</strong> স্যান্ডবক্স বোতামসহ লিস্টিংয়ে দেখা থেকে কেনার হার ২.৫%-এ নেওয়া। স্যান্ডবক্স চালুর আগে, ফেজ ১-এ নিজের শুরুর হার মেপে রাখুন, যাতে উন্নতি প্রমাণ করা যায়।</li>
+    <li><strong>আস্থার রি-স্কোরের গতি।</strong> কোনো ব্যবহৃত ডিপেন্ডেন্সির বিরুদ্ধে NVD বা OSV-তে নতুন CVE আসার সর্বোচ্চ ২৪ ঘণ্টার মধ্যে প্রতিটি লাইভ লিস্টিং আবার স্কোর হবে।</li>
+    <li><strong>ডিপ্লয়মেন্টের গতি।</strong> সার্ভারলেস স্তরে টাকা দেওয়া থেকে লাইভ হতে মাঝামাঝি সময় (p50) ১৫ মিনিটের কম; কন্টেইনার স্তরে p95 সময় ২ ঘণ্টার কম; VPS-এ ৪৮ কর্মঘণ্টার মানুষনির্ভর SLA থাকবে, সময় পার হলে স্বয়ংক্রিয় ক্রেডিটসহ।</li>
+    <li><strong>বিল্ডারের পেমেন্টের নিয়মিততা।</strong> Stripe Connect সমর্থিত প্রতিটি দেশে কোনো ন্যূনতম ছাড়া সাপ্তাহিক পেমেন্ট, আর অন্য দেশের বিল্ডারদের জন্য Wise বা Payoneer (যেমন বাংলাদেশ ও পাকিস্তান, যারা এই বিল্ডার শ্রোতার বড় অংশ)। রিয়েল-টাইম ড্যাশবোর্ডে আয় দেখা যাবে।</li>
+    <li><strong>প্ল্যাটফর্মের মুনাফা।</strong> ১২তম মাসে মাসিক $১,২০,০০০ মোট মুনাফা (gross profit), মার্কেটপ্লেস কমিশন, হোস্টিং মার্জিন, AI স্টুডিও মার্জিন ও বিশেষজ্ঞ এসক্রো ফি মিলিয়ে। আনুমানিক ভাগ: মার্কেটপ্লেস ৪০%, হোস্টিং ৩৫%, AI স্টুডিও ১৫%, বিশেষজ্ঞ ১০%।</li>
+  </ol>
+</section>
+
+<!-- ============ ৮ ============ -->
+<section id="arch">
+  <h2><span class="num">০৮</span>রেফারেন্স আর্কিটেকচার</h2>
+  <p class="lede">নির্দিষ্ট Vercel-ভিত্তিক স্ট্যাক। বেছে নেওয়ার কারণ: এখানে ছোট একটি টিম মৌলিক উপাদানগুলো নতুন করে না বানিয়েই মার্কেটপ্লেস, স্যান্ডবক্স, AI স্টুডিও আর ডিপ্লয় পাইপলাইন চালু করতে পারে।</p>
+
+  <h3>ফ্রন্টএন্ড ও এজ</h3>
+  <ul>
+    <li>Vercel-এ <strong>Next.js 16 App Router</strong>, সঙ্গে <strong>Partial Prerendering (PPR)</strong> ও <strong>Cache Components</strong>। মার্কেটপ্লেসের কাঠামো আগে থেকে তৈরি থাকে; কার্ট, অ্যাকাউন্ট আর লাইভ কোয়ালিটি স্কোর পরে লোড হয়।</li>
+    <li><strong>Routing Middleware</strong> দিয়ে লোকেশন অনুযায়ী মুদ্রা বাছাই, Flags SDK দিয়ে A/B টেস্ট, লগইন যাচাই, আর পেজে পৌঁছানোর আগেই বট শনাক্ত (Vercel BotID)।</li>
+    <li><strong>shadcn ও Tailwind</strong>, ডিফল্ট ডার্ক মোড, ১৫টির বেশি ভাষার জন্য <code>next-intl</code>, <code>next/image</code> ও <code>next/font</code>।</li>
+  </ul>
+
+  <h3>কম্পিউট</h3>
+  <ul>
+    <li><strong>Fluid Compute-এ Vercel Functions</strong>, Node 24 LTS, ৫ GB পর্যন্ত বান্ডেল। API, ছবি প্রসেসিং, Playwright দিয়ে ডেমো ঠিক আছে কিনা পরীক্ষা, এমবেডিং বানানোর Python ML সব এখানে চলে।</li>
+    <li>কেনার আগে চালানোর পরিবেশের জন্য <strong>Vercel Sandbox</strong>। লিস্টিংয়ের আসল সোর্স নমুনা ডেটাসহ বিল্ড করে চালানো, নির্দিষ্ট প্রোডাক্টে সীমিত, ২৪ ঘণ্টা মেয়াদ।</li>
+    <li>Nova-র লাইভ সেশন আর Vibe Studio-তে একসঙ্গে এডিটের জন্য <strong>Vercel WebSockets</strong>।</li>
+  </ul>
+
+  <h3>টেকসই ওয়ার্কফ্লো</h3>
+  <ul>
+    <li>প্রতিটি দীর্ঘ কাজের জন্য <strong>Workflow 5 WorkflowAgent</strong> (<code>@ai-sdk/workflow</code> থেকে): অডিট → রিভিউ → প্রকাশ; কেনা → সার্ভার তৈরি → DNS → SSL → পরীক্ষা → হস্তান্তর; রিলিজ → পরিবর্তনের তুলনা → অল্প করে চালু → পুরো চালু → জানানো। ব্যর্থ হলে নিয়ম মেনে আবার চেষ্টা, পেছনে গিয়ে ডিবাগ করা যায়।</li>
+    <li>ঘটনা অন্তত একবার পৌঁছানোর নিশ্চয়তার জন্য <strong>Vercel Queues</strong>: <code>listing.published</code>, <code>order.paid</code>, <code>deployment.ready</code>, <code>audit.cve_detected</code>, <code>payout.scheduled</code>।</li>
+    <li><strong>Vercel Cron</strong> দিয়ে সাপ্তাহিক রি-স্কোর, রাতের CVE স্ক্যান, ডেমো-URL পরীক্ষা, সোমবারের পেমেন্ট।</li>
+  </ul>
+
+  <h3>ডেটা</h3>
+  <ul>
+    <li>Vercel Marketplace থেকে <strong>Neon Postgres</strong>: প্রতিটি প্রিভিউর জন্য আলাদা ব্রাঞ্চ, আর মিনিট পর্যন্ত নির্দিষ্ট সময়ে ফেরার সুবিধা (PITR)। রাতের VPS ব্যাকআপের পুরো বদলি।</li>
+    <li>একই ক্লাস্টারে <strong>pgvector</strong>, প্রতিটি লিস্টিংয়ের README, আর্কিটেকচার ও ফিচার তালিকার এমবেডিং রাখার জন্য। অর্থভিত্তিক আর কিওয়ার্ড মিলিয়ে হাইব্রিড সার্চ এর ওপর চলে।</li>
+    <li>সোর্স আর্কাইভ ও রিলিজ ফাইলের জন্য <strong>Vercel Blob (private)</strong>; <strong>Vercel KMS</strong> দিয়ে ডিজিটাল সই।</li>
+    <li>ফিচার করা তালিকা, জরুরি বন্ধের সুইচ আর সাইটজুড়ে ব্যানারের জন্য <strong>Global Config</strong> (আগের নাম Edge Config)।</li>
+  </ul>
+
+  <h3>AI স্ট্যাক</h3>
+  <ul>
+    <li>প্রতিটি LLM কলের সামনে <strong>AI SDK 7 ও Vercel AI Gateway</strong>। কাজের ধরন অনুযায়ী মডেল বাছাই, বড় প্রতিষ্ঠানের ক্রেতাদের জন্য BYOK, ডেটা না রাখার মোড, প্রতি ব্যবহারকারীর খরচের সীমা।</li>
+    <li>Nova-র জন্য <strong>eve</strong>: প্রতিটি প্রজেক্টের টেকসই সেশন, ফাইলসিস্টেম, টুল (git, টেস্ট রানার, ডিপ্লয়, ছবি বানানো), স্কিল (নতুন স্টাইল, পেজ যোগ, ইন্টিগ্রেশন যোগ), সাব-এজেন্ট, সময়সূচি, মূল্যায়ন।</li>
+    <li>প্রকাশিত মূল্যায়ন সেট: ৫০টি আসল কাস্টমাইজেশন কাজ, প্রতি সপ্তাহে আবার চালানো, ফল Studio পেজে দেখানো।</li>
+  </ul>
+
+  <h3>বাণিজ্য ও পেমেন্ট</h3>
+  <ul>
+    <li><strong>Stripe Checkout, Connect Express ও Stripe Tax</strong>: বহু মুদ্রা, ১০০টির বেশি দেশের VAT, GST ও বিক্রয় কর, সাপ্তাহিক পেমেন্ট।</li>
+    <li>অথবা প্রথম ছয় মাস <strong>Lemon Squeezy</strong>-কে Merchant of Record হিসেবে ব্যবহার, যখন Stripe Tax ঠিকঠাক করা হচ্ছে।</li>
+    <li>হোস্টিংয়ের কিস্তির জন্য Stripe Billing।</li>
+  </ul>
+
+  <h3>আস্থা ও অডিট ইঞ্জিন</h3>
+  <ul>
+    <li>সংযুক্ত বিল্ডার রিপোর প্রতিটি নতুন push-এ অডিট পাইপলাইন Workflow 5 এজেন্ট হিসেবে চলে। ফলাফল: Vibe96 ধরনের ছয় দিকের স্কোর, SPDX JSON-এ SBOM, OSV থেকে CVE তালিকা, লাইসেন্সের সামঞ্জস্য (SPDX স্ক্যান), টেস্ট কভারেজের সারাংশ (lcov থাকলে), কোডের জটিলতার সংকেত (ESLint complexity, PHPStan level, Roslyn analyzers)।</li>
+    <li>রাতের cron প্রতিটি লাইভ লিস্টিংকে বর্তমান OSV তালিকার সঙ্গে আবার স্কোর করে; অবনতি হলে ব্যাজ নামায় আর বিল্ডারকে ইমেইল করে।</li>
+    <li>প্রতি ৫ মিনিটে ডেমো-URL পরীক্ষা; ফল ব্যাজে যোগ হয়।</li>
+  </ul>
+
+  <h3>ডিপ্লয়মেন্টের পথ (Get it Live-এর উত্তরসূরি)</h3>
+  <div class="table-wrap">
+    <table>
+      <caption>তিনটি স্তর, চেকআউটে বেছে নেওয়া যায়</caption>
+      <thead><tr><th>স্তর</th><th>কার জন্য</th><th>দামের ধরন</th><th>ব্যাকআপ ও দুর্যোগ পুনরুদ্ধার</th></tr></thead>
+      <tbody>
+        <tr><td>Vercel Deploy (সার্ভারলেস ও এজ)</td><td>Next.js, Nuxt, SvelteKit, Astro, Python Fluid, Node API</td><td>ব্যবহার অনুযায়ী, ব্যবহার না থাকলে শূন্য</td><td>Neon PITR ও Blob ভার্সনিং</td></tr>
+        <tr><td>ম্যানেজড কন্টেইনার (Marketplace থেকে Fly, Railway বা Render)</td><td>Laravel ও MySQL, ASP.NET ও SQL Server, Rails, Django</td><td>মাসিক নির্দিষ্ট, ব্যবহারের সঙ্গে বাড়ে</td><td>ভলিউম স্ন্যাপশট ও Neon PITR</td></tr>
+        <tr><td>প্রাইভেট VPS (বর্তমান সেবা রাখা হবে)</td><td>নিয়মকানুনের কারণে নিজস্ব হার্ডওয়্যার যাদের লাগে</td><td>৩, ৬ বা ১২ মাস অগ্রিম</td><td>দৈনিক সার্ভারের বাইরে ব্যাকআপ, PITR ঐচ্ছিক</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>ডেভেলপার প্ল্যাটফর্ম (যে হাতিয়ার প্রতিরক্ষা দেয়াল বানায়)</h3>
+  <ul>
+    <li>OpenAPI 3.1-সহ পাবলিক REST ও Webhooks API, TypeScript ও Python-এর SDK।</li>
+    <li>ঘটনা: <code>listing.*</code>, <code>order.*</code>, <code>deployment.*</code>, <code>release.*</code>, <code>payout.*</code>, <code>audit.*</code>।</li>
+    <li>API-এর ওপর CLI (<code>vibe deploy</code>, <code>vibe fork</code>, <code>vibe audit</code>)।</li>
+    <li>বিল্ডারদের জন্য GitHub App: প্রতিটি push-এ অডিট ও রি-স্কোর, রিলিজ নিজে থেকেই খসড়া হয় LLM-এর লেখা চেঞ্জলগসহ।</li>
+    <li><strong>MCP সার্ভার</strong>, যাতে Cursor, Claude Code, Codex ও v0 ব্যবহারকারী নিজের IDE-র ভেতর থেকেই খুঁজতে, কিনতে, ডিপ্লয় করতে ও তথ্য জানতে পারেন। পুরো স্ট্যাকে এটাই সবচেয়ে কৌশলগত অংশ।</li>
+  </ul>
+
+  <h3>বিশেষজ্ঞ মার্কেটপ্লেস (দুই দিকের শ্রমের স্তর)</h3>
+  <ul>
+    <li>বিশেষজ্ঞের প্রোফাইল পেজ: পোর্টফোলিও, যাচাই করা Vibe96 প্রজেক্টে কাজ, সাড়া দেওয়ার সময়, রেট, টাইম জোন, ক্যালেন্ডার।</li>
+    <li>ফলাফলের জন্য টাকা (নির্দিষ্ট দাম, এসক্রো) অথবা সময়ের জন্য টাকা, সময় লগ করার ব্যবস্থাসহ।</li>
+    <li>Nova-র স্বয়ংক্রিয় হস্তান্তর: Studio-র কাজ জটিলতার সীমা পার হলে Nova ব্রিফ লেখে, দাম ঠিক করে, কয়েকজন বিশেষজ্ঞের কাছে পাঠায়, ক্রেতা বেছে নেন।</li>
+  </ul>
+
+  <h3>পর্যবেক্ষণ (Observability)</h3>
+  <ul>
+    <li>মার্কেটপ্লেসের KPI-র জন্য <strong>Vercel Observability ও Custom Metrics</strong>: দেখা থেকে কেনার ফানেল, প্রতি পেজে p95 সাড়ার সময়, Nova-র কাজের সাফল্য, অডিটের ভুল সতর্কতার হার।</li>
+    <li>ক্লায়েন্ট ও সার্ভারের এররের জন্য Sentry।</li>
+    <li><code>status.&lt;domain&gt;</code>-এ পাবলিক স্ট্যাটাস পেজ, পেছনে Uptime Robot বা BetterStack, Vercel ও Neon-এর স্বাস্থ্য থেকে স্বয়ংক্রিয়ভাবে ভরা।</li>
+    <li>প্রতিটি নতুন ফিচার চালুর জন্য <strong>Flags SDK ও Vercel Flags</strong>: নতুন লিস্টিং লেআউট, নতুন দাম দেখানোর ধরন, নতুন অডিট স্কোরিং।</li>
+    <li>জালিয়াতি, স্ক্র্যাপিং প্রতিরোধ এবং ম্যানেজড ডিপ্লয়মেন্টে বড় প্রতিষ্ঠানের SSO-র জন্য <strong>Vercel BotID, Firewall ও Passport</strong>।</li>
+  </ul>
+</section>
+
+<!-- ============ ৯ ============ -->
+<section id="roadmap">
+  <h2><span class="num">০৯</span>বারো মাসের রোডম্যাপ</h2>
+  <p class="lede">সাতটি ফেজ (০ থেকে ৬)। প্রতিটি নিজেই কিছু মূল্য দেয়, আর পরেরটির পথ খোলে। ক্রম ইচ্ছাকৃত: আগে আস্থা, তারপর আকার, তারপর AI-এর গভীরতা।</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ০</span><span class="ph-weeks">সপ্তাহ ০ থেকে ৪</span></div>
+      <h3>ভিত্তি</h3>
+      <p class="ph-lede">সাইটের চেহারা ও প্রযুক্তি আধুনিক করা। ক্রেতা যেন এমন কিছু না দেখেন যা দেখে "তাড়াহুড়োয় AI দিয়ে বানানো ওয়েবসাইট" মনে হয়।</p>
+      <ul>
+        <li>Vercel-এ Next.js 16। হোম, সার্চ ও লিস্টিং পেজে PPR। shadcn ও Tailwind, ডার্ক মোড, শুরুতে ৫টি ভাষা, মুদ্রা বাছাই।</li>
+        <li>Neon Postgres চালু, স্কিমা v1, ক্যাটাগরি ও নমুনা লিস্টিং CSV থেকে আমদানি।</li>
+        <li>Clerk দিয়ে লগইন: GitHub, Google, Microsoft, Apple ও ইমেইল ম্যাজিক লিংক।</li>
+        <li>একটি $০ পরীক্ষামূলক পণ্যের জন্য Stripe Checkout চালু, যাতে আসল লিস্টিংয়ের আগেই পুরো কেনার প্রক্রিয়া জোড়া লাগে।</li>
+        <li>পাবলিক <code>status.&lt;domain&gt;</code> চালু, সব সবুজ হলেও।</li>
+        <li>GitHub Actions-এ CI/CD: প্রতিটি PR-এ Vercel প্রিভিউ, main-এ Rolling Releases।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ১</span><span class="ph-weeks">সপ্তাহ ৫ থেকে ১০</span></div>
+      <h3>MVP মার্কেটপ্লেস</h3>
+      <p class="ph-lede">৫০টি প্রাথমিক লিস্টিং আর চালু এককালীন-লাইসেন্স কেনার প্রক্রিয়াসহ বিশ্বাসযোগ্য, খোঁজা যায় এমন ক্যাটালগ।</p>
+      <ul>
+        <li>বিল্ডারদের জন্য লিস্টিং তৈরি ও সম্পাদনা। GitHub সংযোগ যা README, প্যাকেজ ম্যানিফেস্ট ও স্ক্রিনশট নিয়ে আসে।</li>
+        <li>হাইব্রিড সার্চ: Postgres full-text দিয়ে কিওয়ার্ড, pgvector দিয়ে অর্থভিত্তিক, নতুনত্ব ও স্কোর অনুযায়ী সাজানো।</li>
+        <li><code>/search</code>-এ "আপনার সমস্যা লিখুন" এজেন্ট, যা ব্যাখ্যাসহ বাছাই করা তালিকা দেয় (AI SDK 7, Gateway)।</li>
+        <li>ক্রেতার রিভিউ, শুধু যাচাই করা ক্রেতা, বিল্ডারের উত্তর দেওয়ার সুযোগ।</li>
+        <li>তুলনার পেজ, যত খুশি প্রোডাক্ট, ডিপেন্ডেন্সির সংখ্যা, টেস্ট কভারেজ ও শেষ আপডেটের তুলনা।</li>
+        <li>কোড প্রিভিউ: ব্রাউজারে Monaco এডিটর, শুধু পড়া যায়, কেনার আগে নির্বাচিত ফাইল (আর্কিটেকচার, রাউট, মাইগ্রেশন) দেখা যায়।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ২</span><span class="ph-weeks">সপ্তাহ ১১ থেকে ১৬</span></div>
+      <h3>আস্থার ইঞ্জিন</h3>
+      <p class="ph-lede">অডিট হয়ে ওঠে চলমান। টাকা দেওয়ার আগে ক্রেতা কোড ছুঁয়ে দেখতে পারেন। রিফান্ড চালু।</p>
+      <ul>
+        <li>সংযুক্ত রিপোর প্রতিটি GitHub push-এ অডিট ওয়ার্কার (Workflow 5 WorkflowAgent) চলে: ছয় দিকের স্কোর, SPDX-এ SBOM, OSV CVE স্ক্যান, লাইসেন্সের সামঞ্জস্য, টেস্ট কভারেজ।</li>
+        <li>রাতের রি-স্কোর cron। অবনতি হলে ব্যাজ নামানো ও ইমেইল।</li>
+        <li>প্রতি ৫ মিনিটে ডেমো-URL পরীক্ষা; ডেমো বন্ধ থাকলে লিস্টিংয়ে স্বয়ংক্রিয় সতর্কতা।</li>
+        <li>প্রতিটি লিস্টিংয়ে <strong>কেনার আগে চালানোর স্যান্ডবক্স</strong>: Vercel Sandbox আসল সোর্স ও নমুনা ডেটা চালায়, ২৪ ঘণ্টা মেয়াদ। অপব্যবহার ঠেকাতে ব্যবহারের সীমা।</li>
+        <li>রিফান্ড নীতি চালু: $২০০-এর নিচে ৭ দিন, তার ওপরে ৩০ দিনের স্টোর ক্রেডিট।</li>
+        <li>প্রতিটি লিস্টিংয়ে পাবলিক কোয়ালিটি রেখা (গত ৯০ দিনের স্কোর)।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ৩</span><span class="ph-weeks">সপ্তাহ ১৭ থেকে ২২</span></div>
+      <h3>ডিপ্লয়মেন্ট ইঞ্জিন</h3>
+      <p class="ph-lede">তিন স্তরের ডিপ্লয়মেন্ট। প্রতি রিলিজে প্রিভিউ URL। সার্ভারলেসে ৪৮ ঘণ্টার SLA হয়ে যায় ১৫ মিনিটের স্বয়ংক্রিয় প্রক্রিয়া।</p>
+      <ul>
+        <li>Vercel Deploy স্তর: এক ক্লিকে ক্রেতার GitHub-এ কপি, Vercel প্রজেক্ট তৈরি, Neon ব্রাঞ্চ তৈরি, DNS ও SSL যুক্ত, পরীক্ষা, হস্তান্তর। মাঝামাঝি সময় ১৫ মিনিট বা কম।</li>
+        <li>Fly বা Railway Marketplace ইন্টিগ্রেশন দিয়ে ম্যানেজড কন্টেইনার স্তর।</li>
+        <li>প্রাইভেট VPS থাকবে, কিন্তু একই Workflow 5 পাইপলাইনে চলবে; ৪৮ ঘণ্টা পার হলে স্বয়ংক্রিয় ক্রেডিট।</li>
+        <li>প্রতিটি বিল্ডার রিলিজে প্রিভিউ ডিপ্লয়মেন্ট, LLM-এর লেখা পরিবর্তনের সারাংশসহ।</li>
+        <li>স্ট্যাটাস পেজ আসল সংকেত দিয়ে চলে।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ৪</span><span class="ph-weeks">সপ্তাহ ২৩ থেকে ২৮</span></div>
+      <h3>AI স্টুডিও</h3>
+      <p class="ph-lede">Nova নতুন করে eve-তে বানানো, AI Gateway দিয়ে চালানো, মানুষের কাছে হস্তান্তর আর প্রকাশিত মূল্যায়ন ব্যবস্থাসহ।</p>
+      <ul>
+        <li>প্রতিটি প্রজেক্টের জন্য ফাইলসিস্টেম, git ও ডিপ্লয় স্কিলসহ টেকসই eve সেশন।</li>
+        <li>AI Gateway: Claude (কোড), GPT (ছবি), Gemini (লম্বা কনটেক্সট), স্বচ্ছ বিকল্প ব্যবস্থা, কাজপ্রতি ও মাসিক বাজেট সীমা।</li>
+        <li>ডিজাইন প্রিভিউ প্রক্রিয়া রাখা ও আরও মসৃণ করা; প্রতিটি কাজের আগে অনুমিত খরচ।</li>
+        <li>eve স্কিল হিসেবে বিশেষজ্ঞের কাছে হস্তান্তর: জটিলতা সীমা পার হলে স্বয়ংক্রিয় ব্রিফ, স্বয়ংক্রিয় দাম, বাছাই করা বিশেষজ্ঞদের কাছে পাঠানো।</li>
+        <li>প্রকাশিত মূল্যায়ন ব্যবস্থা: ৫০টি আসল কাস্টমাইজেশন কাজ, প্রতি সপ্তাহে চালানো, পাসের হার <code>/vibe-studio</code>-তে দেখানো।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ৫</span><span class="ph-weeks">সপ্তাহ ২৯ থেকে ৩৬</span></div>
+      <h3>প্ল্যাটফর্ম</h3>
+      <p class="ph-lede">মার্কেটপ্লেস আর শুধু একটি ওয়েবসাইট থাকে না; হয়ে ওঠে একটি API, যার একটি ওয়েবসাইটও আছে।</p>
+      <ul>
+        <li>OpenAPI 3.1 এবং TypeScript ও Python SDK-সহ পাবলিক REST ও Webhooks API।</li>
+        <li>API-এর ওপর CLI (<code>vibe</code>)।</li>
+        <li>বিল্ডারদের জন্য GitHub App: push-এ অডিট, LLM চেঞ্জলগ, রিলিজের খসড়া।</li>
+        <li>MCP সার্ভার। Cursor, Claude Code বা v0-তে কাজ করতে করতেই একজন ডেভেলপার <code>vibe search "POS for car wash"</code> চালাতে, বেছে নিতে, ডিপ্লয় করতে ও পরিবর্তন করতে পারবেন।</li>
+        <li>বিল্ডারের অ্যানালিটিক্স ড্যাশবোর্ড: ফানেল, Flags SDK দিয়ে A/B টেস্ট, দাম নিয়ে পরামর্শ।</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="ph-head"><span class="ph-num">ফেজ ৬</span><span class="ph-weeks">সপ্তাহ ৩৭ থেকে ৫২</span></div>
+      <h3>প্রবৃদ্ধি</h3>
+      <p class="ph-lede">মডিউল, এজেন্সি, বড় প্রতিষ্ঠান, আন্তর্জাতিক বাজার।</p>
+      <ul>
+        <li>মডিউল বা প্লাগইনের উপ-মার্কেটপ্লেস: বিল্ডাররা পুনর্ব্যবহারযোগ্য অ্যাডাপ্টার (Stripe, লগইন কিট, ইনভয়েসিং) বিক্রি করবেন, যা অন্য বিল্ডাররা আয়ের ভাগের বিনিময়ে নিজেদের টেমপ্লেটে বসাবেন।</li>
+        <li>এজেন্সি প্ল্যান: মাসে $৯৯-এ যত খুশি ক্লায়েন্ট ডিপ্লয়মেন্ট; প্রতি ডিপ্লয়মেন্টে বিল্ডারকে সামান্য কমিশন।</li>
+        <li>বড় প্রতিষ্ঠানের স্তর: Vercel Passport SSO, নিজস্ব DPA, আলাদা সাপোর্ট চ্যানেল, নিজস্ব অডিট নিয়ম।</li>
+        <li>পূর্ণ বহুভাষিক সাইট (কমপক্ষে ১৫টি ভাষা), পূর্ণ কর ব্যবস্থা (Stripe Tax বা Lemon Squeezy দিয়ে ১০০টির বেশি দেশ), সব মুদ্রায় দাম।</li>
+        <li>স্টোর ক্রেডিটসহ রেফারেল প্রোগ্রাম।</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ১০ ============ -->
+<section id="commerce">
+  <h2><span class="num">১০</span>দাম, লাইসেন্স ও ব্যবসায়িক মডেল</h2>
+
+  <h3>মার্কেটপ্লেস কমিশনের ধাপ (সবার জন্য একই ৩৫%-এর বদলে)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>বিল্ডারের মোট আজীবন বিক্রি</th><th>প্ল্যাটফর্মের ভাগ</th><th>বিল্ডারের ভাগ</th></tr></thead>
+      <tbody>
+        <tr><td class="num-col">$০ থেকে $৫,০০০</td><td class="num-col">৩০%</td><td class="num-col">৭০%</td></tr>
+        <tr><td class="num-col">$৫,০০১ থেকে $২৫,০০০</td><td class="num-col">২৫%</td><td class="num-col">৭৫%</td></tr>
+        <tr><td class="num-col">$২৫,০০১ থেকে $১,০০,০০০</td><td class="num-col">২০%</td><td class="num-col">৮০%</td></tr>
+        <tr><td class="num-col">$১,০০,০০১-এর বেশি</td><td class="num-col">১৫%</td><td class="num-col">৮৫%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>প্রতিটি ধাপে এটা CodeCanyon-এর রিপোর্ট করা ৫০% কাটের চেয়ে ভালো, আর যে বিল্ডারদের আপনি সবচেয়ে বেশি চান তাদের পুরস্কৃত করে। সাপ্তাহিক পেমেন্ট আর কোনো ন্যূনতম না থাকার সঙ্গে মিলিয়ে বিল্ডারদের কাছে প্রস্তাবটা খুব সহজে বোঝানো যায়।</p>
+
+  <h3>ক্রেতার দামের ধাপ</h3>
+  <p>এককালীন সিঙ্গেল-সাইট লাইসেন্সই প্রধান পণ্য থাকবে। ঐচ্ছিক <strong>বর্ধিত আপডেট</strong> যোগ করুন (মূল দামের ৪০% বেশি দিলে প্রথম বছরের পর আরও ১২ মাস বিল্ডারের আপডেট)। <strong>মাল্টি-সাইট লাইসেন্স</strong> (মূল দামের ১০০% বেশি)। আর মাসে $৯৯-এ <strong>এজেন্সি লাইসেন্স</strong>, যত খুশি ক্লায়েন্ট ডিপ্লয়মেন্ট।</p>
+
+  <h3>হোস্টিংয়ের দাম</h3>
+  <p>সার্ভারলেস স্তর: ব্যবহার অনুযায়ী দাম, মাসিক ন্যূনতম নেই, নতুন ক্রেতাদের $৫ ফ্রি ক্রেডিট। কন্টেইনার স্তর: মাসে $১৯ থেকে $১৪৯ নির্দিষ্ট। VPS স্তর: Vibe96-এর বর্তমান দামের মতোই। হোস্টিংয়ের পাশের আয়: মাসে $১৯-এ প্রিভিউ পরিবেশের প্যাক, সার্ভারলেস ক্রেতার জন্য মাসে $৯-এ কাস্টম ডোমেইন প্যাক।</p>
+
+  <h3>AI স্টুডিওর দাম</h3>
+  <p>AI Gateway-এর মাধ্যমে যত ব্যবহার তত পেমেন্ট: প্রোভাইডারের খরচের ওপর ১৫% যোগ, প্রতিটি কাজের অনুমিত খরচ স্বচ্ছভাবে দেখানো। মাসিক বাজেট সীমা বাধ্যতামূলক। সাইন আপে প্রথম $৫ ফ্রি, Vibe96-এর সমান, যাতে তুলনায় পিছিয়ে না থাকেন; আর আসল বাজেট নিয়ন্ত্রণ দিয়ে তার চেয়ে ভালো।</p>
+
+  <h3>বিশেষজ্ঞ স্তর</h3>
+  <p>শুরুতে Vibe96-এর রেটকে ভিত্তি ধরা; যোগ দেওয়ার পর বিশেষজ্ঞরা নিজের রেট ঠিক করবেন। প্ল্যাটফর্ম ফি: নির্দিষ্ট দামের কাজে ১৫% (এসক্রোর মাধ্যমে), ঘণ্টাভিত্তিক কাজে ১০% (সময় লগের মাধ্যমে)। পরিচয় করিয়ে দেওয়া বিনামূল্যে থাকবে।</p>
+
+  <h3>লাইসেন্স</h3>
+  <p>Vibe96-এর লাইসেন্সের কাঠামো প্রায় হুবহু রাখুন; লেখাটা ভালো। তিনটি পরিবর্তন: (ক) প্রযোজ্য আইন হবে ক্রেতার পছন্দে DIFC, ইংল্যান্ড ও ওয়েলস, অথবা ডেলাওয়্যার; (খ) Vibe96-এর ৯A ধারার ক্ষতিপূরণের আওতা বাড়িয়ে, অডিট পার হওয়া কোডে ওপেন-সোর্স লাইসেন্সের ভুল উল্লেখও এর মধ্যে আনা; (গ) ইইউ ও যুক্তরাজ্যের সাধারণ ভোক্তাদের জন্য ৭ দিনের ভেবে দেখার অধিকার যোগ করা, যেখানে আইন তা দাবি করে সেখানে "সব বিক্রি চূড়ান্ত" নিয়মের ওপরে।</p>
+</section>
+
+<!-- ============ ১১ ============ -->
+<section id="team">
+  <h2><span class="num">১১</span>টিম, বাজেট ও বাজারে প্রবেশ</h2>
+
+  <h3>১২ মাসের পরিকল্পনা বাস্তবায়নের ন্যূনতম টিম</h3>
+  <ul>
+    <li><strong>প্রতিষ্ঠাতা বা CEO</strong>: বাণিজ্য, বিল্ডার সংগ্রহ, বাজারে প্রবেশ।</li>
+    <li><strong>প্রতিষ্ঠাতা ইঞ্জিনিয়ার বা CTO</strong>: আর্কিটেকচার, ফেজ ০ থেকে ৩।</li>
+    <li><strong>সিনিয়র ফুল-স্ট্যাক ইঞ্জিনিয়ার</strong>: অডিট ইঞ্জিন, স্যান্ডবক্স, ডিপ্লয়মেন্ট পাইপলাইন।</li>
+    <li><strong>AI ইঞ্জিনিয়ার</strong>: eve-তে Nova, AI Gateway ইন্টিগ্রেশন, মূল্যায়ন ব্যবস্থা।</li>
+    <li><strong>প্রোডাক্ট ডিজাইনার</strong> (চুক্তিভিত্তিক বা সিনিয়র): ফেজ ১ থেকে সব UI।</li>
+    <li><strong>মার্কেটপ্লেস অপারেশনস লিড</strong>: লিস্টিংয়ের মানুষের রিভিউ, বিল্ডার সাপোর্ট, বিরোধ নিষ্পত্তি। শুরুতে খণ্ডকালীন হতে পারে।</li>
+    <li><strong>কনটেন্ট ও SEO লিড</strong> (খণ্ডকালীন): গাইড আর তুলনামূলক পেজ, যা সার্চ থেকে ভিজিটর আনে।</li>
+  </ul>
+  <p>সাতজন, যার পাঁচজন পূর্ণকালীন, এই পরিকল্পনার জন্য যথেষ্ট। এর কম হলে ফেজ ৬ বাদ দিন এবং ফেজ ৫ ১২তম মাসে সরিয়ে নিন।</p>
+
+  <h3>বাজেটের খসড়া (১২ মাস, USD)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>খাত</th><th>বার্ষিক</th><th>মন্তব্য</th></tr></thead>
+      <tbody>
+        <tr><td>বেতন (৫ জন পূর্ণকালীন ও ২ জন চুক্তিভিত্তিক)</td><td class="num-col">$৬,২০,০০০</td><td>দুবাই ও দূরবর্তী ইউরোপীয় সিনিয়র রেটের মিশ্রণ ধরে</td></tr>
+        <tr><td>অবকাঠামো (Vercel, Neon, Stripe, Sentry, AI Gateway)</td><td class="num-col">$৩৬,০০০</td><td>ব্যবহারের সঙ্গে বাড়ে; বেশিরভাগ খরচ গ্রাহকের পেমেন্ট থেকে উঠে আসে</td></tr>
+        <tr><td>LLM খরচ (AI Studio-র ফ্রি ক্রেডিট, Nova মূল্যায়ন)</td><td class="num-col">$৪২,০০০</td><td>৬ মাস পর থেকে মার্জিনসহ বিক্রি</td></tr>
+        <tr><td>আইনি (DIFC, GDPR DPA, Stripe কর সেটআপ)</td><td class="num-col">$২৮,০০০</td><td></td></tr>
+        <tr><td>মার্কেটিং (SEO কনটেন্ট, YouTube, ডেভেলপার টুলের সঙ্গে পার্টনারশিপ)</td><td class="num-col">$৮০,০০০</td><td></td></tr>
+        <tr><td>বিল্ডার বোনাস (Vibe96-এর $৬০-এর বদলে)</td><td class="num-col">$২৪,০০০</td><td>প্রথম লাইভ লিস্টিংয়ে $১০০, ২৪০টি লিস্টিং</td></tr>
+        <tr><td>প্রথম ৩০০ লিস্টিংয়ের বিশেষজ্ঞ রিভিউ</td><td class="num-col">$১৮,০০০</td><td>লিস্টিংপ্রতি গড়ে $৬০</td></tr>
+        <tr><td>সংরক্ষিত</td><td class="num-col">$৫২,০০০</td><td></td></tr>
+        <tr><th>মোট</th><th class="num-col">$৯,০০,০০০</th><th>১০ থেকে ১২ লাখ ডলারের প্রি-সিড রাউন্ডে কিছুটা বাড়তি সময়সহ চলে যায়</th></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>বাজারে প্রবেশ, প্রভাবের ক্রম অনুযায়ী</h3>
+  <ol>
+    <li><strong>আগে বিল্ডার সংগ্রহ।</strong> সফটওয়্যার না থাকলে ক্রেতা আসেন না। AI-কোডিং YouTube দর্শকদের কাছে যান (Learn with Sumit-এর মতো বাংলা চ্যানেল দেখিয়েছে এই দর্শকরা সাড়া দেন), Lovable, Base44 ও Replit কমিউনিটিতে, আর X ও Reddit-এর ইন্ডি SaaS বিল্ডারদের কাছে। প্রথম লাইভ লিস্টিংয়ে $১০০ বোনাস (Vibe96 দেয় $৫০), সাপ্তাহিক পেমেন্ট আর কম কাট অফার করুন।</li>
+    <li><strong>প্রবেশপথ হিসেবে MCP সার্ভার।</strong> প্রথমে Cursor, Claude Code ও v0 ব্যবহারকারীদের কাছে চালু করুন: "আপনার IDE থেকেই অডিট করা AI-নির্মিত অ্যাপ খুঁজুন ও ডিপ্লয় করুন।" এই ব্যবহারকারীরা ভালো সাড়া দেন, কারণ তারা আগে থেকেই সেই এজেন্টভিত্তিক কাজের ধারায় আছেন যেখানে এই প্রোডাক্ট মানানসই।</li>
+    <li><strong>পার্টনারশিপ।</strong> Vercel (AI SDK, eve, Sandbox নিয়ে যৌথ মার্কেটিং), Clerk, Stripe। প্রতিটি একটি কেস স্টাডির সুযোগ খোলে।</li>
+    <li><strong>SEO।</strong> Vibe96-এর গাইডের ধরন ঠিক আছে (Lovable অ্যাপ ডিপ্লয়, Bolt অ্যাপ ডিপ্লয় ইত্যাদি)। আরও জোরালোভাবে বাড়ান: প্রতিটি "X ডিপ্লয় করুন" ও "X অ্যাপ ঠিক করুন" বিষয়ে একটি করে পেজ, প্রতিটিতে চালিয়ে দেখার মতো ডেমো।</li>
+    <li><strong>তুলনামূলক কনটেন্ট।</strong> Vibe96, CodeCanyon, Flippa ও Acquire-এর সঙ্গে সৎ, মুখোমুখি তুলনা। তুলনার পেজ থেকে বিক্রি ভালো আসে।</li>
+  </ol>
+</section>
+
+<!-- ============ ১২ ============ -->
+<section id="kpis">
+  <h2><span class="num">১২</span>KPI ও সাফল্যের মাপকাঠি</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>মাপকাঠি</th><th>শুরুর অবস্থা (Vibe96)</th><th>৬ মাসের লক্ষ্য</th><th>১২ মাসের লক্ষ্য</th></tr></thead>
+      <tbody>
+        <tr><td>লাইভ অডিট করা লিস্টিং</td><td class="num-col">৬৮</td><td class="num-col">২২০</td><td class="num-col">৫০০</td></tr>
+        <tr><td>সক্রিয় বিল্ডার (৩০ দিনের মধ্যে লিস্টিং)</td><td class="num-col">২৪</td><td class="num-col">৯০</td><td class="num-col">১৮০</td></tr>
+        <tr><td>দেখা থেকে কেনার হার</td><td>প্রকাশিত নয়</td><td class="num-col">১.৫%</td><td class="num-col">২.৫%</td></tr>
+        <tr><td>স্যান্ডবক্স চালানো থেকে কেনার হার</td><td>প্রযোজ্য নয়</td><td class="num-col">৮%</td><td class="num-col">১৪%</td></tr>
+        <tr><td>টাকা দেওয়া থেকে লাইভ, মাঝামাঝি সময় (সার্ভারলেস)</td><td>৪৮ কর্মঘণ্টা (SLA)</td><td class="num-col">৩০ মিনিট</td><td class="num-col">১৫ মিনিট</td></tr>
+        <tr><td>নতুন CVE এলে অডিট আবার স্কোর হতে সময়</td><td>শুধু নতুন ভার্সনে</td><td class="num-col">৪৮ ঘণ্টা</td><td class="num-col">২৪ ঘণ্টা</td></tr>
+        <tr><td>বিল্ডার পেমেন্টের নিয়মিততা</td><td>মাসিক, ন্যূনতম $২০০</td><td>সাপ্তাহিক, ন্যূনতম নেই</td><td>সাপ্তাহিক, ন্যূনতম নেই</td></tr>
+        <tr><td>মাসিক মোট মুনাফা</td><td>প্রকাশিত নয়</td><td class="num-col">$৪৫,০০০</td><td class="num-col">$১,২০,০০০</td></tr>
+        <tr><td>প্ল্যাটফর্ম NPS (ক্রেতা)</td><td>প্রযোজ্য নয়</td><td class="num-col">৪৫</td><td class="num-col">৫৫</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ১৩ ============ -->
+<section id="risks">
+  <h2><span class="num">১৩</span>ঝুঁকি ও খোলা প্রশ্ন</h2>
+
+  <h3>কৌশলগত ঝুঁকি</h3>
+  <ul>
+    <li><strong>বিল্ডার প্ল্যাটফর্ম আগে মার্কেটপ্লেস চালু করে ফেলে।</strong> Lovable বা Replit টেমপ্লেট বিনিময় চালু করে পুরো লাভ নিজেদের কাছে রেখে দেয়। সমাধান: MCP সার্ভার ও GitHub App আগেভাগে চালু করুন, যাতে কোড যে টুলেই বানানো হোক, বিক্রি আপনার মাধ্যমে হয়।</li>
+    <li><strong>Vibe96 জেগে ওঠে।</strong> তাদের ৬৮টি লিস্টিংয়ের এগিয়ে থাকা আর নথিভুক্ত অডিট মানদণ্ড আছে। সমাধান: পাবলিক, সময়ভিত্তিক কোয়ালিটি স্কোর তাদের পরে জুড়ে দিতে হবে, যা আপনার শুরু থেকে বানানোর চেয়ে ধীর।</li>
+    <li><strong>আস্থার ব্যর্থতা।</strong> পাসওয়ার্ড চুরি করে এমন কোডসহ একটি লিস্টিং কোনো ক্রেতার কাছে পৌঁছালে সেই খবর ব্র্যান্ড শেষ করে দিতে পারে। সমাধান: অডিট ওয়ার্কার সুরক্ষিত স্যান্ডবক্সে চলে; কোড প্রিভিউ শুধু পড়ার জন্য এবং নির্বাচিত অংশ; স্যান্ডবক্স ডেমো নির্দিষ্ট প্রোডাক্টে সীমিত, বাইরে কোনো সংযোগ নেই।</li>
+  </ul>
+
+  <h3>পরিচালনাগত ঝুঁকি</h3>
+  <ul>
+    <li><strong>মানুষের রিভিউতে আটকে যাওয়া।</strong> সপ্তাহে ২০টির বেশি লিস্টিং রিভিউ করা কঠিন। সমাধান: স্বয়ংক্রিয় অডিট ৮৫% সিদ্ধান্ত নেয়; মানুষের রিভিউ শুধু ব্যতিক্রমী ক্ষেত্রে।</li>
+    <li><strong>LLM খরচ লাগামছাড়া।</strong> সীমাহীন চলতে থাকা Nova ক্রেতার ব্যালান্স শেষ করে দেয়। সমাধান: কাজপ্রতি কঠোর সীমা, ব্যবহারকারীপ্রতি মাসিক সীমা, শুরুর আগে অনুমান, পরে আসল খরচ দেখানো।</li>
+  </ul>
+
+  <h3>আইনি ঝুঁকি</h3>
+  <ul>
+    <li><strong>ওপেন-সোর্স লাইসেন্সের সমস্যা।</strong> কোনো লিস্টিংয়ের অডিট GPL লাইসেন্সের কোড ধরতে পারল না, আর ক্রেতা তার ওপর বাণিজ্যিক প্রোডাক্ট চালু করলেন। সমাধান: SPDX স্ক্যানিং অডিটের বাধ্যতামূলক ধাপ।</li>
+    <li><strong>১০০ দেশের VAT ও কর।</strong> সমাধান: প্রথম ছয় মাস Lemon Squeezy-কে Merchant of Record রাখলে এই দায় প্রায় পুরোটাই তাদের ঘাড়ে যায়।</li>
+    <li><strong>হোস্টিংয়ের দায়।</strong> আপনার স্তরে কোনো ক্রেতার অ্যাপের ডেটা হারাল। সমাধান: স্পষ্ট DPA, Neon-এ PITR, Blob ভার্সনিং, প্রতিটি স্তরের জন্য নথিভুক্ত RPO ও RTO (কতটা ডেটা হারানো আর কত সময় বন্ধ থাকা মেনে নেওয়া হবে)।</li>
+  </ul>
+</section>
+
+<!-- ============ ১৪ ============ -->
+<section id="next">
+  <h2><span class="num">১৪</span>এই সপ্তাহে কী করবেন</h2>
+  <p class="lede">যেকোনো বিনিয়োগ আলোচনার আগে কাজ এগিয়ে নেওয়ার ছয়টি নির্দিষ্ট ধাপ।</p>
+  <ol>
+    <li><strong>ব্যবসার নাম ও ডোমেইন নিবন্ধন করুন।</strong> দুই বা তিনটি বিকল্প কিনে রাখুন। প্রতিষ্ঠার ব্যাপারে গুরুতর হলে এমন জায়গায় কোম্পানি নিবন্ধন করুন যা ভবিষ্যতে বিকল্প খোলা রাখে (যুক্তরাষ্ট্র থেকে বিনিয়োগ তুলতে চাইলে Delaware C-Corp; উপসাগরীয় অঞ্চল লক্ষ্য হলে UK Ltd ও DIFC)।</li>
+    <li><strong>Next.js 16, Vercel ও Neon দিয়ে প্রজেক্টের কাঠামো তৈরি করুন</strong>, এই কাজের জন্য যে ফোল্ডার খুলেছেন সেখানেই। একদিনের কাজ। GitHub-এ push করুন, Vercel প্রিভিউতে ডিপ্লয় করুন, যাতে দেখানোর মতো একটা URL থাকে।</li>
+    <li><strong>অডিটের মানদণ্ড লিখুন।</strong> Vibe96-এর ছয়টি দিক ভালো ভিত্তি। আরও দুটি যোগ করুন: লাইসেন্সের সামঞ্জস্য (SPDX স্ক্যান) এবং পারফরম্যান্সের সীমা (নমুনা ডেমোতে Lighthouse LCP ২.৫ সেকেন্ড বা কম)।</li>
+    <li><strong>স্যান্ডবক্সের নমুনা বানান।</strong> একটি Vercel Sandbox কল, যা পরিচিত একটি Next.js রিপো নমুনা ডেটাসহ চালু করে ২৪ ঘণ্টার একটি URL দেয়। সম্ভাব্য বিল্ডারদের কাছে এটাই দেখানোর ডেমো।</li>
+    <li><strong>২০ জন সম্ভাব্য বিল্ডার বাছুন।</strong> vibe-coding ভিডিওর কমেন্ট সেকশনে, CodeCanyon ও Gumroad-এ ইতিমধ্যে বিক্রি করছেন এমন বিল্ডারদের মধ্যে, আর Lovable ও Replit শোকেসে খুঁজুন। প্রথম লিস্টিংয়ে $১০০ বোনাস আর ৭০% ভাগের প্রস্তাব দিয়ে যোগাযোগ করুন। দশজন রাজি হলেই ক্যাটালগ শুরু করা যায়।</li>
+    <li><strong>এক পাতার সারাংশ লিখুন</strong>, যা পরে বিনিয়োগের পিচ ডেক হবে: মূল ভাবনা, বাজার, আর্কিটেকচার, রোডম্যাপ, টিম ও কত টাকা চাইছেন। আপনি যে ডসিয়ারটি পড়ছেন তাতে এর ৮০% বিষয়বস্তু আগেই আছে।</li>
+  </ol>
+
+  <p class="callout good">
+    <strong>শেষ কথা।</strong> Vibe96-এর নিজের লাইভ সংখ্যা, <em>গ্রাহকের জন্য ২টি অ্যাপ ডিপ্লয়</em>, পুরো সুযোগটা এক কথায় বুঝিয়ে দেয়। প্রস্তাবটা ভালো, কিন্তু বাস্তবায়নের জায়গা এখনো খোলা। এটা গড়া মানে এই বাজি ধরা যে, বারো মাসে আপনি স্বয়ংক্রিয় অংশগুলো যত দ্রুত বানাতে পারবেন, পুরোনো খেলোয়াড় তত দ্রুত সেগুলো জুড়ে দিতে পারবে না, আর AI-কোডিং টুলগুলো তাকেই পুরস্কৃত করবে যে প্রথমে API-কেন্দ্রিক সংস্করণ বাজারে আনবে।
+  </p>
+</section>
+
+<!-- ============ ১৫ ============ -->
+<section id="glossary">
+  <h2><span class="num">১৫</span>শব্দকোষ: প্রযুক্তিগত শব্দের সহজ অর্থ</h2>
+  <p class="lede">এই ডসিয়ারে বারবার আসা শব্দগুলোর সংক্ষিপ্ত ব্যাখ্যা।</p>
+  <dl class="glossary">
+    <dt>অডিট (Audit)</dt><dd>কোডের নিরাপত্তা, গঠন ও মান যাচাই করা।</dd>
+    <dt>API</dt><dd>যে পথে এক সফটওয়্যার অন্য সফটওয়্যারকে কাজের নির্দেশ দেয় বা তথ্য চায়।</dd>
+    <dt>CLI</dt><dd>টার্মিনালে কমান্ড লিখে চালানো যায় এমন টুল।</dd>
+    <dt>CVE</dt><dd>প্রকাশ্যে তালিকাভুক্ত একটি নিরাপত্তা দুর্বলতা; প্রতিটির আলাদা নম্বর থাকে।</dd>
+    <dt>SBOM</dt><dd>একটি সফটওয়্যারের ভেতরে থাকা সব লাইব্রেরি ও তাদের লাইসেন্সের তালিকা, খাবারের প্যাকেটে উপাদানের তালিকার মতো।</dd>
+    <dt>SPDX</dt><dd>SBOM ও লাইসেন্সের তথ্য লেখার আন্তর্জাতিক মানসম্মত ফরম্যাট।</dd>
+    <dt>SLA</dt><dd>কত সময়ের মধ্যে বা কোন মানে সেবা দেওয়া হবে তার লিখিত প্রতিশ্রুতি।</dd>
+    <dt>VPS</dt><dd>একটি বড় সার্ভারের ভেতরে আপনার জন্য আলাদা করা নিজস্ব ভার্চুয়াল সার্ভার।</dd>
+    <dt>সার্ভারলেস</dt><dd>সার্ভার নিজে চালাতে হয় না; প্ল্যাটফর্ম চালায়, আর যতটুকু ব্যবহার ততটুকুর টাকা নেয়।</dd>
+    <dt>কন্টেইনার</dt><dd>অ্যাপ আর তার দরকারি সবকিছু একটি প্যাকেটে ভরে যেকোনো সার্ভারে একইভাবে চালানোর পদ্ধতি।</dd>
+    <dt>PITR</dt><dd>ডেটাবেসকে অতীতের যেকোনো নির্দিষ্ট মুহূর্তে ফিরিয়ে নেওয়ার সুবিধা।</dd>
+    <dt>স্যান্ডবক্স</dt><dd>বাকি সিস্টেম থেকে আলাদা একটি নিরাপদ পরিবেশ, যেখানে কোড চালিয়ে দেখা যায়।</dd>
+    <dt>এসক্রো (Escrow)</dt><dd>কাজ বুঝে না পাওয়া পর্যন্ত টাকা মাঝের একটি পক্ষের কাছে জমা থাকা।</dd>
+    <dt>MCP সার্ভার</dt><dd>AI টুল (যেমন Claude Code, Cursor) যেন সরাসরি আপনার সেবা ব্যবহার করতে পারে, তার একটি মানসম্মত সংযোগ।</dd>
+    <dt>Webhook</dt><dd>কিছু ঘটলে এক সিস্টেম স্বয়ংক্রিয়ভাবে অন্য সিস্টেমকে খবর পাঠায়।</dd>
+    <dt>Fork</dt><dd>কোনো কোডের নিজের একটি আলাদা কপি বানানো, যাতে স্বাধীনভাবে পরিবর্তন করা যায়।</dd>
+    <dt>p50 ও p95</dt><dd>অর্ধেক (p50) বা ৯৫% (p95) ক্ষেত্রে কাজটা যত সময়ের মধ্যে শেষ হয়।</dd>
+    <dt>প্রতিরক্ষা দেয়াল (Moat)</dt><dd>এমন সুবিধা যা প্রতিযোগীদের পক্ষে সহজে নকল করা কঠিন।</dd>
+    <dt>রূপান্তর (Conversion)</dt><dd>যত মানুষ দেখলেন তার মধ্যে কত শতাংশ কিনলেন।</dd>
+    <dt>KPI</dt><dd>সাফল্য মাপার প্রধান সংখ্যাগুলো।</dd>
+    <dt>NPS</dt><dd>গ্রাহকরা অন্যদের কাছে কতটা সুপারিশ করবেন, তার একটি স্কোর।</dd>
+    <dt>Merchant of Record</dt><dd>যে প্রতিষ্ঠান আইনগতভাবে বিক্রেতা হিসেবে কর আদায় ও জমা দেওয়ার দায়িত্ব নেয়।</dd>
+    <dt>প্রি-সিড রাউন্ড</dt><dd>প্রোডাক্ট পুরোপুরি তৈরি হওয়ার আগে নেওয়া প্রথম দিকের বিনিয়োগ।</dd>
+  </dl>
+</section>
+
+<footer>
+  <p>Vibe96 উত্তরসূরি ব্লুপ্রিন্ট · ২৭ অক্টোবর ২০২৬-এ প্রস্তুত · ইংরেজি মূল লেখার বাংলা অনুবাদ।</p>
+  <p>তথ্যসূত্র: লগইন ছাড়া vibe96.com পরিদর্শন (হোম, সার্চ, প্রোডাক্ট পেজ, Get it Live, হোস্টিং সার্ভার, হোস্টিং নিরাপত্তা, experts, developers, sell, how it works, Vibe Studio, AI assistants, about, লাইসেন্স, ব্লগ, সাইটম্যাপ); Learn with Sumit-এর ভিডিওর বিবরণ (১৭ অক্টোবর ২০২৬; ভিডিওতে ক্যাপশন নেই, তাই অডিও পর্যালোচনা করা হয়নি); এবং CodeCanyon, Flippa, Acquire.com, ExitBid, Lovable, Base44, Replit, VibeChex ও SBOM টুল নিয়ে ওয়েব গবেষণা। লগইন করা ড্যাশবোর্ড, চেকআউট ও বিল্ডার ওয়ার্কস্পেস পরীক্ষা করা হয়নি। প্রতিযোগীদের সংখ্যা অন্য উৎস থেকে নেওয়া; পিচে ব্যবহারের আগে যাচাই করে নিন।</p>
+</footer>
+
+</main>
+
+</html>

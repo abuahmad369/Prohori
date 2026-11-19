@@ -1,0 +1,12 @@
+export { scanDirectory, scanFiles } from './scan.ts';
+export { DEFAULT_LIMITS, isTextPath, normalizePath, shouldLoadPath } from './files.ts';
+export { toMarkdown } from './report/markdown.ts';
+export { toSarif } from './report/sarif.ts';
+export { purlFor, toCycloneDx } from './report/sbom.ts';
+export { toText } from './report/text.ts';
+export { ALL_RULES, RULES_BY_ID } from './rules/index.ts';
+export { maskSecrets } from './rules/secret-patterns.ts';
+export { CATEGORY_META, CATEGORY_ORDER, GATE_MIN_SCORE, gradeFor, scoreFindings, SEVERITY_POINTS } from './scoring.ts';
+export type { ScanCoverage } from './scoring.ts';
+export { ENGINE_NAME, ENGINE_VERSION } from './version.ts';
+export type * from './types.ts';
