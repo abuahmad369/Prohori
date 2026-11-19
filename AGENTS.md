@@ -22,4 +22,4 @@ Read `progress.md` first: it has the current status and the next steps. The busi
 - **Suppressions need a reason.** Use `prohori-ignore <rule-id>: <reason>` or a `.prohoriignore` line, never a silent skip.
 - **Secrets:** never in `NEXT_PUBLIC_` variables, never in committed `.env` files. Use `.env.example` with empty values.
 - **Money:** amounts are integers in minor units (paisa, cents). Payment status changes only through `handleGatewayCallback()` in `apps/web/lib/orders.ts`, which verifies signatures and amounts.
-- **Before finishing a session:** run `pnpm test`, `pnpm typecheck` and `pnpm scan:self`, then update `progress.md` (Status, Done, Next steps, Session log).
+- **Before finishing a session:** run `pnpm test`, `pnpm typecheck` and `pnpm scan:self`, then update `progress.md` (Status, Done, Next steps, Session log), commit, and push to `origin main` (private GitHub repository).

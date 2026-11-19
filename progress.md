@@ -10,7 +10,9 @@
 
 **এখন পর্যন্ত যা হয়েছে:** গবেষণা, পুরো ব্যবসার পরিকল্পনা (`docs/scenario.md`), প্রযুক্তির নকশা (`docs/architecture.md`), স্ক্যান ইঞ্জিন (৩৯টা নিয়ম, ৫৯টা টেস্ট পাস), আর ওয়েবসাইট (স্ক্যান, রিপোর্ট, মার্কেটপ্লেস, বিক্রি করা, কেনা, ড্যাশবোর্ড) তৈরি এবং ব্রাউজারে পুরোটা পরীক্ষা করা হয়েছে। পেমেন্ট এখন সিমুলেটেড (আসল টাকা যায় না)। এটা শুধু নিজের কম্পিউটারে চলে, এখনো ইন্টারনেটে দেওয়ার মতো নয়।
 
-**পরের কাজ:** git দিয়ে কোড সেভ করা, ইউজার অ্যাকাউন্ট, ডাটাবেস (Postgres), SSLCommerz স্যান্ডবক্সে বিকাশ/নগদ পরীক্ষা, তারপর ইন্টারনেটে ডিপ্লয়। নিচের "Next steps" অংশে ক্রমানুসারে লেখা আছে।
+সব কোড এখন GitHub-এর প্রাইভেট রিপোজিটরিতে আছে: github.com/abuahmad369/Prohori
+
+**পরের কাজ:** ইউজার অ্যাকাউন্ট, ডাটাবেস (Postgres), SSLCommerz স্যান্ডবক্সে বিকাশ/নগদ পরীক্ষা, তারপর ইন্টারনেটে ডিপ্লয়। নিচের "Next steps" অংশে ক্রমানুসারে লেখা আছে।
 
 **সতর্কতা:** D: ড্রাইভে জায়গা প্রায় শেষ (১৯ নভেম্বর ২০২৬ তারিখে ০.২৮ GB খালি)। আরো কাজের আগে কিছু জায়গা খালি করুন।
 
@@ -27,6 +29,8 @@ Build **Prohori**, the trust layer for AI-built software:
 **Phase 0 (foundation) complete: a working local MVP.** Last updated: 2026-11-19.
 
 Not deployable yet: there are no accounts, data is stored in a local JSON file, and payments are simulated. Phase 1 (below) fixes this before anything goes online.
+
+Code: private GitHub repository **github.com/abuahmad369/Prohori**, branch `main`. Commit and push at the end of every session.
 
 ## Done
 
@@ -53,12 +57,13 @@ Not deployable yet: there are no accounts, data is stored in a local JSON file, 
   - Zip upload and public GitHub scans work; missing repo, wrong file type, bad ids, bad categories, bad emails and unknown pages give clear errors or 404
   - No server errors, no React or hydration errors; production build passes (17 routes)
 - [x] Checks: **59 engine tests pass**, type check clean in both packages, `pnpm scan:self` gives **96/100 (A), verified**
+- [x] Version control: git set up and pushed to the private repository github.com/abuahmad369/Prohori (2026-11-19)
 
 ## Next steps (in order)
 
 **Before any of these:** free space on D: (see Environment notes). Installs and builds need about 1 GB.
 
-1. **Version control.** Run `git init`, commit, and push to a private GitHub repository. Nothing is under version control yet, so one disk failure loses everything.
+1. **Check CI on GitHub.** The workflow in `.github/workflows/ci.yml` runs on every push (tests, type check, self-scan). Open the repository's Actions tab and confirm the first run passed. The SARIF upload step may be skipped on a private repository without GitHub code scanning; it is set to continue on error.
 2. **Accounts and roles.** Sign-up and login for builders and buyers, and an operator role. Then:
    - Require a builder account on `POST /api/listings` (the one open finding in the self-scan) and take `builderId` from the account, not from the typed name.
    - Lock `/dashboard` to operators.
@@ -147,7 +152,7 @@ pnpm build            # production build (writes about 220 MB to apps/web/.next)
 
 - Windows 11, PowerShell; Node 24.11.1, npm 11.6.2, pnpm 11.1.3, git 2.47.1.
 - **Disk space is critical.** On 2026-11-19, D: had 0.28 GB free (after deleting the 223 MB production build output). This project uses about 1.2 GB on D: (`node_modules` 348 MB, mostly hard links into the pnpm store at `D:\.pnpm-store`, which is 861 MB). The rest of the drop from about 5.5 GB two days earlier is outside this project. Free space before installing or building; `pnpm store prune` removes store packages no project uses.
-- This folder is not a git repository yet (see Next steps, item 1).
+- Git: remote `origin` is github.com/abuahmad369/Prohori (private); sign-in comes from Git Credential Manager. Large pushes timed out with HTTP 408, so this repository has `http.version HTTP/1.1` and `http.postBuffer 157286400` set locally; a push with the 6.7 MB PDF took about a minute. The `gh` CLI is installed but not signed in (`gh auth login` to use it).
 - Separate earlier task: MiroFish's backend install failed for lack of disk space; still waiting on a decision (C: environment or free space on D:).
 
 ## Session log
@@ -166,3 +171,4 @@ pnpm build            # production build (writes about 220 MB to apps/web/.next)
   - Engine gate hardened: no code, or a crashed check, means not verified (2 new tests, 59 total).
   - Production build passes; self-scan 96 (A), verified.
   - Freed disk space by deleting `apps/web/.next` and the test data.
+  - Git set up; first commit pushed to github.com/abuahmad369/Prohori on top of the repository's initial README commit. Added `.gitattributes` (LF line endings).
